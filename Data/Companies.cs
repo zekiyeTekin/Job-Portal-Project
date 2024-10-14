@@ -12,7 +12,7 @@ namespace EFCoreFinalApp.Data{
         public string? Email {get; set;}
         public string? Phone {get; set;}
         public string? Industry {get; set;}
-        public ICollection<Recruiters> Recruiters { get; set; } = new List<Recruiters>();
+    
         public ICollection<JobPosting> JobPostings { get; set; } = new List<JobPosting>();
         
     }

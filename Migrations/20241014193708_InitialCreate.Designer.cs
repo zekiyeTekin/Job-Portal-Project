@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreFinalApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241012203706_InitialCreate")]
+    [Migration("20241014193708_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -129,12 +129,6 @@ namespace EFCoreFinalApp.Migrations
                     b.Property<DateTime>("PostedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RecruiterId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RecruitersId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<decimal>("Salary")
                         .HasColumnType("TEXT");
 
@@ -145,40 +139,7 @@ namespace EFCoreFinalApp.Migrations
 
                     b.HasIndex("CompaniesId");
 
-                    b.HasIndex("RecruitersId");
-
                     b.ToTable("JobPosting");
-                });
-
-            modelBuilder.Entity("EFCoreFinalApp.Data.Recruiters", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompaniesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Desription")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Position")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompaniesId");
-
-                    b.ToTable("Recruiters");
                 });
 
             modelBuilder.Entity("EFCoreFinalApp.Data.JobApply", b =>
@@ -208,25 +169,6 @@ namespace EFCoreFinalApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFCoreFinalApp.Data.Recruiters", "Recruiters")
-                        .WithMany("JobPostings")
-                        .HasForeignKey("RecruitersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Companies");
-
-                    b.Navigation("Recruiters");
-                });
-
-            modelBuilder.Entity("EFCoreFinalApp.Data.Recruiters", b =>
-                {
-                    b.HasOne("EFCoreFinalApp.Data.Companies", "Companies")
-                        .WithMany("Recruiters")
-                        .HasForeignKey("CompaniesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Companies");
                 });
 
@@ -238,18 +180,11 @@ namespace EFCoreFinalApp.Migrations
             modelBuilder.Entity("EFCoreFinalApp.Data.Companies", b =>
                 {
                     b.Navigation("JobPostings");
-
-                    b.Navigation("Recruiters");
                 });
 
             modelBuilder.Entity("EFCoreFinalApp.Data.JobPosting", b =>
                 {
                     b.Navigation("JobApply");
-                });
-
-            modelBuilder.Entity("EFCoreFinalApp.Data.Recruiters", b =>
-                {
-                    b.Navigation("JobPostings");
                 });
 #pragma warning restore 612, 618
         }

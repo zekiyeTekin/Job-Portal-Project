@@ -1,0 +1,56 @@
+@model EFCoreFinalApp.Data.Candidates
+
+
+
+<h2>Aday Güncelleme Ekranı</h2>
+<hr>
+
+<div class="row">
+    <div class="col-8">
+        <form asp-controller="Candidates" asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input asp-for="Name" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Surname" class="form-label">Surname
+        </label>
+            <input asp-for="Surname" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Phone" class="form-label">Phone</label>
+            <input asp-for="Phone" class="form-control">
+        </div>
+         <div class="mb-3">
+            <label asp-for="ProfileImg" class="form-label">Profile Photo</label>
+            <input type="file" asp-for="ProfileImg" class="form-control">
+        </div>
+        <div>
+        <img src="~/uploads/images/@Model.ProfileImg" style=" width: 100px;" alt="">
+        <input type="hidden" asp-for="@Model.ProfileImg">
+    </div>
+        <div class="mb-3">
+            <label asp-for="ResumePath" class="form-label">Resume</label>
+            <input type="file" asp-for="ResumePath" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="IsOpenToWork" class="form-label">Open to Work</label>
+            <input asp-for="IsOpenToWork" type="checkbox" class="form-check-input">
+        </div>
+        
+       
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        </form>
+</div>
+
+    <div class="col-4">
+         <h4>Başvuruların</h4>
+         <hr>
+        
+    </div>
+</div>

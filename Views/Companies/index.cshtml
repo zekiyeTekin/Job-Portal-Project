@@ -4,24 +4,31 @@
     ViewData["Title"] = "Companies";
 }
 
-<h2>Companies 
-    <a href="/Company/Search" class="btn btn-success">
-    Search İşlemi Yapılacak!!</a>
+<h2 class="d-flex align-items-center justify-content-between">
+    <span>Companies</span> 
+     <div class="d-flex">
+        <form asp-action="Index" class="d-flex" method="get">
+            <input type="search" class="form-control me-2" name="searchString" value="@ViewBag.SearchString" placeholder="Anahtar Kelime" style="width: 200px;">
+
+            <button type="submit" class="btn btn-secondary">ARA</button>
+        </form>
+    </div>
 </h2>
+ <hr>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Industry</th>
-            <th></th>
+            <th>@Html.DisplayNameFor(m=>m.Name)</th>
+            <th>@Html.DisplayNameFor(m=>m.Industry)</th>
+            <th style="width: 500px;" ></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var company in Model)
         {
             <tr>
-                <td>@company.Name</td>
+                <td> @Html.DisplayFor(modelItem => company.Name)</td>
                 <td>@company.Industry</td>
                 <td>
                     <button class="btn btn-primary" onclick="openPopup(@company.Id)">Detail</button>
