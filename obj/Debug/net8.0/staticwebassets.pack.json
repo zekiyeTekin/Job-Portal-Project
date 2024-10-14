@@ -253,6 +253,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\uploads\\images\\profil.png",
+      "PackagePath": "staticwebassets\\uploads\\images\\profil.png"
+    },
+    {
+      "Id": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\uploads\\resumes\\ZekiyeTekin_Ozgecmis.pdf",
+      "PackagePath": "staticwebassets\\uploads\\resumes\\ZekiyeTekin_Ozgecmis.pdf"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EFCoreFinalApp.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

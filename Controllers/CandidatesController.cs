@@ -32,7 +32,7 @@ namespace EFCoreFinalApp.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Candidates model)
+        public async Task<IActionResult> Edit(int id, Candidates model, IFormFile? ProfileImg)
         {
             if (id != model.Id)
             {
@@ -60,5 +60,50 @@ namespace EFCoreFinalApp.Controllers{
             }
             return View(model);
         }
-    }   
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Candidates model, IFormFile ProfileImg, IFormFile ResumePath)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                if (ResumePath != null)
+                {
+                    var resumeFileName = Path.GetFileName(ResumePath.FileName);
+                    var resumeFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/resumes", resumeFileName);
+                    using (var stream = new FileStream(resumeFilePath, FileMode.Create))
+                    {
+                        await ResumePath.CopyToAsync(stream);
+                    }
+                    model.ResumePath = "/uploads/resumes/" + resumeFileName; 
+                }
+
+                
+                if (ProfileImg != null)
+                {
+                    var imageFileName = Path.GetFileName(ProfileImg.FileName);
+                    var imageFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/images", imageFileName);
+                    using (var stream = new FileStream(imageFilePath, FileMode.Create))
+                    {
+                        await ProfileImg.CopyToAsync(stream);
+                    }
+                    model.ProfileImg = "/uploads/images/" + imageFileName; 
+                }
+
+                
+                _context.Candidates.Add(model);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+    } 
 }

@@ -1,0 +1,38 @@
+@model EFCoreFinalApp.Data.Candidates
+
+<h2>Aday Oluştur</h2>
+<hr>
+
+<form asp-controller="Candidates" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Ad</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Surname" class="form-label">Soyad</label>
+        <input asp-for="Surname" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">E-posta</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phone" class="form-label">Telefon</label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">CV Yükle</label>
+        <input type="file" name="ResumePath" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Görsel Yükle</label>
+        <input type="file" name="ProfileImg" class="form-control" />
+    </div>
+    <div class="mb-3 form-check">
+        <input asp-for="IsOpenToWork" class="form-check-input">
+        <label asp-for="IsOpenToWork" class="form-check-label"></label>
+        <span asp-validation-for="IsOpenToWork"></span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

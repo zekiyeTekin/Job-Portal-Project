@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7rZAGnRN6r/u5VPJgMF/+dkRNu4gX6aDL0ykHR3FaZg=",
+  "Hash": "rqFZfZDJY1KubtQHLfdxWwfajCHBF9znBaTnOOkjU3o=",
   "Source": "EFCoreFinalApp",
   "BasePath": "_content/EFCoreFinalApp",
   "Mode": "Default",
@@ -1231,6 +1231,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\uploads\\images\\profil.png",
+      "SourceId": "EFCoreFinalApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\",
+      "BasePath": "_content/EFCoreFinalApp",
+      "RelativePath": "uploads/images/profil.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\images\\profil.png"
+    },
+    {
+      "Identity": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\uploads\\resumes\\ZekiyeTekin_Ozgecmis.pdf",
+      "SourceId": "EFCoreFinalApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\",
+      "BasePath": "_content/EFCoreFinalApp",
+      "RelativePath": "uploads/resumes/ZekiyeTekin_Ozgecmis.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\resumes\\ZekiyeTekin_Ozgecmis.pdf"
     }
   ]
 }
