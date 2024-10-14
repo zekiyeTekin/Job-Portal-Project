@@ -1,0 +1,128 @@
+@model IEnumerable<EFCoreFinalApp.Data.Companies>
+
+@{
+    ViewData["Title"] = "Companies";
+}
+
+<h2>Companies 
+    <a href="/Company/Search" class="btn btn-success">
+    Search İşlemi Yapılacak!!</a>
+</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Industry</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td>@company.Name</td>
+                <td>@company.Industry</td>
+                <td>
+                    <button class="btn btn-primary" onclick="openPopup(@company.Id)">Detail</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Popup Modal -->
+<div id="editPopup" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h3>Details Company</h3>
+
+        <form method="post" id="editForm">
+            <input type="hidden" id="companyId" name="Id" />
+            <div>
+                <label for="companyName">Name:</label>
+                <input type="text" id="companyName" name="Name" />
+            </div>
+            <div>
+                <label for="companyDescription">Description:</label>
+                <input type="text" id="companyDescription" name="Description" />
+            </div>
+            <div>
+                <label for="companyEmail">Email:</label>
+                <input type="email" id="companyEmail" name="Email" />
+            </div>
+            <div>
+                <label for="companyPhone">Phone:</label>
+                <input type="tel" id="companyPhone" name="Phone" />
+            </div>
+            <div>
+                <label for="companyIndustry">Industry:</label>
+                <input type="text" id="companyIndustry" name="Industry" />
+            </div>
+            <div>
+                <button type="submit" class="btn btn-warning">Açık Position</button>
+
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Popup Modal Styles -->
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: white;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+    }
+
+    .close {
+        color: #c21111;
+        float: right;
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+<!-- JavaScript to handle popup -->
+<script>
+    function openPopup(companyId) {
+        fetch(`/Companies/GetCompany/${companyId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("companyId").value = data.id;
+                document.getElementById("companyName").value = data.name;
+                document.getElementById("companyDescription").value = data.description;
+                document.getElementById("companyEmail").value = data.email;
+                document.getElementById("companyPhone").value = data.phone;
+                document.getElementById("companyIndustry").value = data.industry;
+            });
+
+        document.getElementById("editPopup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("editPopup").style.display = "none";
+    }
+</script>
