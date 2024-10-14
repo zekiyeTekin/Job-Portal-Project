@@ -26,6 +26,8 @@ namespace EFCoreFinalApp.Controllers
             return Json(company);
         }
 
+        
+
 
     }
 }

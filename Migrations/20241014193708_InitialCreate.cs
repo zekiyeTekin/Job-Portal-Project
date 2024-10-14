@@ -48,30 +48,6 @@ namespace EFCoreFinalApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Recruiters",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Position = table.Column<string>(type: "TEXT", nullable: true),
-                    Desription = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CompaniesId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recruiters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Recruiters_Companies_CompaniesId",
-                        column: x => x.CompaniesId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "JobPosting",
                 columns: table => new
                 {
@@ -84,9 +60,7 @@ namespace EFCoreFinalApp.Migrations
                     PostedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ClosingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CompanyId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CompaniesId = table.Column<int>(type: "INTEGER", nullable: false),
-                    RecruiterId = table.Column<int>(type: "INTEGER", nullable: false),
-                    RecruitersId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CompaniesId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,12 +69,6 @@ namespace EFCoreFinalApp.Migrations
                         name: "FK_JobPosting_Companies_CompaniesId",
                         column: x => x.CompaniesId,
                         principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_JobPosting_Recruiters_RecruitersId",
-                        column: x => x.RecruitersId,
-                        principalTable: "Recruiters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -147,16 +115,6 @@ namespace EFCoreFinalApp.Migrations
                 name: "IX_JobPosting_CompaniesId",
                 table: "JobPosting",
                 column: "CompaniesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JobPosting_RecruitersId",
-                table: "JobPosting",
-                column: "RecruitersId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Recruiters_CompaniesId",
-                table: "Recruiters",
-                column: "CompaniesId");
         }
 
         /// <inheritdoc />
@@ -170,9 +128,6 @@ namespace EFCoreFinalApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "JobPosting");
-
-            migrationBuilder.DropTable(
-                name: "Recruiters");
 
             migrationBuilder.DropTable(
                 name: "Companies");

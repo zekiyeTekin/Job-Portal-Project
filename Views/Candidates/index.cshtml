@@ -1,0 +1,26 @@
+@model IEnumerable<EFCoreFinalApp.Data.Candidates>
+
+    <h2>Aday Kayıt Listesi</h2>
+    <hr>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m=>m.Id)</th>
+            <th>@Html.DisplayNameFor(m=>m.Username)</th>
+            <th style="width: 150px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var candidate in Model){
+            <tr>
+                <td>@Html.DisplayFor(modelItem => candidate.Id)</td>
+                <td>@Html.DisplayFor(modelItem => candidate.Username)</td>
+                <td>
+                    <a asp-controller="Candidates" asp-action="Edit" asp-route-id="@candidate.Id" class="btn btn-warning btn-sm">Details</a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

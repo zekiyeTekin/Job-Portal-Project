@@ -13,6 +13,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\img\\home.svg",
+      "PackagePath": "staticwebassets\\img\\home.svg"
+    },
+    {
+      "Id": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\img\\logo.svg",
+      "PackagePath": "staticwebassets\\img\\logo.svg"
+    },
+    {
       "Id": "C:\\Users\\Zekiye Tekin\\ProjectsDotNet\\EFCoreFinalApp\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

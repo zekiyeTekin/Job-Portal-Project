@@ -12,9 +12,6 @@ namespace EFCoreFinalApp.Data{
         public DateTime ClosingDate { get; set; }
         public int CompanyId { get; set; }
         public Companies Companies { get; set; } = null!;
-        public int RecruiterId { get; set; }
-
-        public Recruiters Recruiters { get; set; } = null!;
 
         public ICollection<JobApply> JobApply { get; set; } = new List<JobApply>();
     }
