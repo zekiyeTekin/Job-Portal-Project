@@ -1,6 +1,1 @@
-
-bin/
-obj/
-
-# Veritabanı dosyaları
-*.db
+/obj
