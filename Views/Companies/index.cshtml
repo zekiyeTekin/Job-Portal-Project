@@ -31,51 +31,53 @@
                 <td> @Html.DisplayFor(modelItem => company.Name)</td>
                 <td>@company.Industry</td>
                 <td>
-                    <button class="btn btn-primary" onclick="openPopup(@company.Id)">Detail</button>
+                    <a onclick="openPopup(@company.Id)">
+                         <img src="~/img/info.png"
+                         alt="Info Icon" class="info-icon"
+                         />    
+                        </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<!-- Popup Modal -->
+
 <div id="editPopup" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closePopup()">&times;</span>
-        <h3>Details Company</h3>
+        <span class="close text-end" onclick="closePopup()">&times;</span>
+        <!-- <h3>Details Company</h3> -->
 
         <form method="post" id="editForm">
+            
             <input type="hidden" id="companyId" name="Id" />
-            <div>
-                <label for="companyName">Name:</label>
-                <input type="text" id="companyName" name="Name" />
+            <div style="text-align: center; margin-bottom: 20px;">
+               <h3>
+                <strong>
+                    <span id="companyName" name="Name"></span>
+                </strong>
+                </h3>
             </div>
-            <div>
-                <label for="companyDescription">Description:</label>
-                <input type="text" id="companyDescription" name="Description" />
+            <div style="margin-bottom: 10px;">
+                <strong>Description:</strong> <span id="companyDescription" name="Description"></span>
             </div>
-            <div>
-                <label for="companyEmail">Email:</label>
-                <input type="email" id="companyEmail" name="Email" />
+            <div style="margin-bottom: 10px;">
+                <strong>Email:</strong> <span id="companyEmail" name="Email"></span>
             </div>
-            <div>
-                <label for="companyPhone">Phone:</label>
-                <input type="tel" id="companyPhone" name="Phone" />
+            <div style="margin-bottom: 10px;">
+                <strong>Phone:</strong> <span id="companyPhone" name="Phone"></span>
             </div>
-            <div>
-                <label for="companyIndustry">Industry:</label>
-                <input type="text" id="companyIndustry" name="Industry" />
+            <div style="margin-bottom: 10px;">
+                <span id="companyIndustry" name="Industry" class="tag"></span>
             </div>
-            <div>
-                <button type="submit" class="btn btn-warning">Açık Position</button>
-
-                <button type="submit" class="btn btn-success">Save</button>
+            <div  class="text-end">
+                 <button type="submit" class="btn btn-warning" style="margin-top: 20px;">Açık Pozisyonlar</button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Popup Modal Styles -->
+
 <style>
     .modal {
         display: none;
@@ -86,21 +88,41 @@
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.7);
     }
 
     .modal-content {
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.9);
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
         width: 30%;
+        text-align: left; 
+    }
+    .tag {
+        display: inline-block; 
+        padding: 5px 10px; 
+        border-radius: 15px; 
+        background-color: #e4dbb7;
+        color: rgb(0, 0, 0); 
+        margin-left: 5px;
+    }
+    .info-icon {
+        width: 30px; 
+        height: 30px; 
+        transition: transform 0.2s, color 0.2s; 
     }
 
+    .info-icon:hover {
+        transform: scale(1.6);
+    }
+
+
+
     .close {
-        color: #c21111;
+        color: #E4A11B;
         float: right;
-        font-size: 32px;
+        font-size: 44px;
         font-weight: bold;
     }
 
@@ -112,19 +134,25 @@
     }
 </style>
 
-<!-- JavaScript to handle popup -->
+
 <script>
     function openPopup(companyId) {
-        fetch(`/Companies/GetCompany/${companyId}`)
-            .then(response => response.json())
+            fetch(`/Companies/GetCompany/${companyId}`)
+                .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
-                document.getElementById("companyId").value = data.id;
-                document.getElementById("companyName").value = data.name;
-                document.getElementById("companyDescription").value = data.description;
-                document.getElementById("companyEmail").value = data.email;
-                document.getElementById("companyPhone").value = data.phone;
-                document.getElementById("companyIndustry").value = data.industry;
-            });
+                 console.log('Company Data:', data); 
+                document.getElementById("companyName").textContent = data.name;
+                document.getElementById("companyDescription").textContent = data.description;
+                document.getElementById("companyEmail").textContent = data.email;
+                document.getElementById("companyPhone").textContent = data.phone;
+                document.getElementById("companyIndustry").textContent = data.industry;
+            })
+            .catch(error => console.error('There was a problem with the fetch operation:', error));
 
         document.getElementById("editPopup").style.display = "block";
     }

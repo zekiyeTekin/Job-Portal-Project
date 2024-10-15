@@ -27,11 +27,27 @@
                         @(isOpenToWork ? "True" : "False")
                     </strong>
                 </td>
-                <td>
-                    <a asp-controller="Candidates" asp-action="Edit" asp-route-id="@candidate.Id" class="btn btn-warning btn-sm">Details</a>
-                    
+               
+                 <td>
+                    <a asp-controller="Candidates"          asp-action="Edit" asp-route-id="@candidate.Id"> 
+                    <img src="~/img/infocandidate.png" alt="Info Icon" class="info-icon" /> 
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+
+<style>
+    .info-icon {
+        width: 30px;
+        height: 30px; 
+        transition: transform 0.2s, color 0.2s; 
+    }
+
+    .info-icon:hover {
+        transform: scale(1.6); 
+    }
+</style>
