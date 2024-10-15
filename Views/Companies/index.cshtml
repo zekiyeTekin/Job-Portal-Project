@@ -8,9 +8,28 @@
     <span>Companies</span> 
      <div class="d-flex">
         <form asp-action="Index" class="d-flex" method="get">
-            <input type="search" class="form-control me-2" name="searchString" value="@ViewBag.SearchString" placeholder="Anahtar Kelime" style="width: 200px;">
+            <!-- <input type="search" class="form-control me-2" name="searchString" value="@ViewBag.SearchString" placeholder="Anahtar Kelime" style="width: 200px;">
 
-            <button type="submit" class="btn btn-secondary">ARA</button>
+            <button type="submit" class="btn btn-secondary">ARA</button> -->
+            <div class="form-group">
+                    <select id="industryFilter" name="industryFilter" class="form-control" style="width: 200px; margin-right: 12px;">
+                    <option value="">Tüm Sektörler</option>
+                    @foreach (var industry in ViewBag.Industry)
+                    {
+                        if (industry == ViewBag.SelectedIndustry)
+                        {
+                            <option value="@industry" selected>@industry</option>
+                        }
+                        else
+                        {
+                            <option value="@industry">@industry</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Filtrele</button>
+
         </form>
     </div>
 </h2>
@@ -59,15 +78,19 @@
                 </h3>
             </div>
             <div style="margin-bottom: 10px;">
-                <strong>Description:</strong> <span id="companyDescription" name="Description"></span>
+                <img src="~/img/description.png"
+                alt="Description Icon" class="icon"/>
+                    <span id="companyDescription" name="Description"></span>
             </div>
             <div style="margin-bottom: 10px;">
-                <strong>Email:</strong> <span id="companyEmail" name="Email"></span>
+                <img src="~/img/mail.png"
+                alt="Mail Icon" class="icon"/> <span id="companyEmail" name="Email"></span>
             </div>
             <div style="margin-bottom: 10px;">
-                <strong>Phone:</strong> <span id="companyPhone" name="Phone"></span>
+                <img src="~/img/phone.png"
+                alt="Phone Icon" class="icon"/> <span id="companyPhone" name="Phone"></span>
             </div>
-            <div style="margin-bottom: 10px;">
+            <div style="margin-bottom: 20px;">
                 <span id="companyIndustry" name="Industry" class="tag"></span>
             </div>
             <div  class="text-end">
@@ -106,6 +129,12 @@
         background-color: #e4dbb7;
         color: rgb(0, 0, 0); 
         margin-left: 5px;
+    }
+    .icon{
+        width: 30px;
+        height: 30px; 
+        margin-right: 8px; 
+        vertical-align: middle;
     }
     .info-icon {
         width: 30px; 
