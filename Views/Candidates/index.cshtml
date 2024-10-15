@@ -19,7 +19,14 @@
                     <img src="@candidate.ProfileImg" alt="@candidate.Username" style="width: 50px; height: 50px; border-radius: 50%;" />
                 </td>
                 <td>@Html.DisplayFor(modelItem => candidate.Username)</td>
-                <th>@Html.DisplayNameFor(m=>m.IsOpenToWork)</th>
+                <td>
+                    @{
+                        var isOpenToWork = candidate.IsOpenToWork;
+                    }
+                    <strong style="color: @(isOpenToWork ? "green" : "red")">
+                        @(isOpenToWork ? "True" : "False")
+                    </strong>
+                </td>
                 <td>
                     <a asp-controller="Candidates" asp-action="Edit" asp-route-id="@candidate.Id" class="btn btn-warning btn-sm">Details</a>
                     
