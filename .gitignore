@@ -6,11 +6,11 @@ project.lock.json
 *.pyc
 nupkg/
 
-# *.dll
-# *.exe
-# bin/Debug/
-# jobportal.db-shm
-# jobportal.db-wal
+*.dll
+*.exe
+bin/Debug/
+jobportal.db-shm
+jobportal.db-wal
 
 
 # Visual Studio Code
