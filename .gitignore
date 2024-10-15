@@ -12,6 +12,7 @@ bin/Debug/
 jobportal.db-shm
 jobportal.db-wal
 
+obj/Debug/
 
 # Visual Studio Code
 .vscode/
