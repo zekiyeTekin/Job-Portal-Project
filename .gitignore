@@ -1,10 +1,17 @@
-/obj
+
 *.swp
 *.*~
 project.lock.json
 .DS_Store
 *.pyc
 nupkg/
+
+# *.dll
+# *.exe
+# bin/Debug/
+# jobportal.db-shm
+# jobportal.db-wal
+
 
 # Visual Studio Code
 .vscode/
