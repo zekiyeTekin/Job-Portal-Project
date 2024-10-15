@@ -15,7 +15,9 @@
     <tbody>
         @foreach(var candidate in Model){
             <tr>
-                <td>@Html.DisplayFor(modelItem => candidate.ProfileImg)</td>
+                <td>
+                    <img src="@candidate.ProfileImg" alt="@candidate.Username" style="width: 50px; height: 50px; border-radius: 50%;" />
+                </td>
                 <td>@Html.DisplayFor(modelItem => candidate.Username)</td>
                 <th>@Html.DisplayNameFor(m=>m.IsOpenToWork)</th>
                 <td>
