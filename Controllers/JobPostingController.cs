@@ -20,7 +20,7 @@ namespace EFCoreFinalApp.Controllers
         }
 
          [HttpGet]
-        public async Task<IActionResult> GetPost (int id)
+        public async Task<IActionResult> GetPost(int id)
         {
             var posting = await _context.JobPosting.FindAsync(id);
             if (posting == null)

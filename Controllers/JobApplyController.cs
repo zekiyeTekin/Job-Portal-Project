@@ -11,24 +11,30 @@ namespace EFCoreFinalApp.Controllers{
             _context = context;
         }
 
-        // public async Task<IActionResult> Index()
-        // {
-        //     var JobApply = await _context.JobApply.Include(x=>x.Candidates).Include(x=>x.JobPosting).ToListAsync();
-        //     return View(JobApply);
-        // }
+        public async Task<IActionResult> Index()
+            {
+                var jobApplies = await _context.JobApply
+                    .Include(x => x.Candidates)
+                    .Include(x => x.JobPosting)
+                    .ToListAsync();
+                return View(jobApplies);
+            }
 
         [HttpGet]
         public IActionResult Create(int jobPostingId)
         {
-            var jobApply = new JobApply { JobPostingId = jobPostingId };
+            var jobApply = _context.JobPosting.Find(jobPostingId);
+            
             if (jobApply == null)
             {
-                return NotFound();
+                return NotFound(); 
             }
-            
+
+            ViewBag.JobPosting = jobApply;        
             var jobApplies = new JobApply
             {
                 JobPostingId = jobApply.Id,
+                //CandidatesId = 1,
                 Status = "Beklemede" 
             };
             return View(jobApplies);
@@ -38,14 +44,22 @@ namespace EFCoreFinalApp.Controllers{
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(JobApply jobApply)
         {
+            Console.WriteLine($"CandidatesId: {jobApply.CandidatesId}");
+    Console.WriteLine($"JobPostingId: {jobApply.JobPostingId}");
+    Console.WriteLine($"Status: {jobApply.Status}");
             if (ModelState.IsValid)
             {
                 jobApply.ApplyDate = DateTime.Now;
                 _context.JobApply.Add(jobApply);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "JobPosting"); // Başarıyla kaydedildiğinde yönlendirin
+                return RedirectToAction("Index"); 
+            }else{
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors)){
+                    Console.WriteLine(error.ErrorMessage); 
+                    }
             }
-            return View(jobApply);
+            
+                    return View(jobApply);
         }
    
     }

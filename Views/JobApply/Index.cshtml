@@ -1,0 +1,27 @@
+@model IEnumerable<EFCoreFinalApp.Data.JobApply>
+
+<h1>Job Applications</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Job Title</th>
+            <th>Candidate</th>
+            <th>Status</th>
+            <th>Apply Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var apply in Model)
+        {
+            <tr>
+                <td>@apply.Id</td>
+                <td>@apply.JobPosting.Title</td>
+                <td>@apply.Candidates.Name</td>
+                <td>@apply.Status</td>
+                <td>@apply.ApplyDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

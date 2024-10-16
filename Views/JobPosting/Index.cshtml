@@ -11,9 +11,7 @@
         <tr>
             <th>CompanyName</th>
             <th>Title</th>
-            <th>Description</th>
             <th>Location</th>
-            <th>Salary</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -23,9 +21,7 @@
             <tr>
                 <td>@job.Companies.Name</td>
                 <td>@job.Title</td>
-                <td>@job.Description</td>
                 <td>@job.Location</td>
-                <td>@job.Salary</td>
                 <td>
                     <a onclick="openPopup(@job.Id)">
                          <img src="~/img/info.png"
@@ -57,6 +53,14 @@
                 </h3>
             </div>
             <div style="margin-bottom: 10px;">
+                İlan Yayınlanma:
+                    <span id="postPostedDate"name="PostedDate"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                Son başvuru:
+                    <span id="postClosingDate"name="ClosingDate"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
                 <img src="~/img/description.png"
                 alt="Description Icon" class="icon"/>
                     <span id="postDescription" name="Description"></span>
@@ -68,6 +72,13 @@
             <div style="margin-bottom: 10px;">
                 <img src="~/img/phone.png"
                 alt="Phone Icon" class="icon"/> <span id="postSalary" name="Salary"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                Şirket Adı:
+                <strong><span id="postCompanyName" name="postCompanyName"></span></strong>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <img id="postCompanyLogo" alt="Company Logo" style="width: 100px; height: 100px;"/>
             </div>
         </form>
     </div>
@@ -152,9 +163,13 @@
             .then(data => {
                  console.log('Post Data:', data); 
                 document.getElementById("postTitle").textContent = data.title;
+                document.getElementById("postPostedDate").textContent = data.postedDate.split('T')[0];
+                document.getElementById("postClosingDate").textContent = data.closingDate.split('T')[0];
                 document.getElementById("postDescription").textContent = data.description;
                 document.getElementById("postLocation").textContent = data.location;
                 document.getElementById("postSalary").textContent = data.salary;
+                document.getElementById("postCompanyName").textContent = data.companies.name;
+                document.getElementById("postCompanyLogo").src = data.companies.logo;
             })
             .catch(error => console.error('There was a problem with the fetch operation:', error));
 
