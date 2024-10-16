@@ -27,9 +27,141 @@
                 <td>@job.Location</td>
                 <td>@job.Salary</td>
                 <td>
+                    <a onclick="openPopup(@job.Id)">
+                         <img src="~/img/info.png"
+                         alt="Info Icon" class="info-icon"
+                         />    
+                        </a>
+                </td>
+                <td>
                     <a asp-action="Create" asp-controller="JobApply" asp-route-jobPostingId="@job.Id" class="btn btn-primary">Apply</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<div id="editPopup" class="modal">
+    <div class="modal-content">
+        <span class="close text-end" onclick="closePopup()">&times;</span>
+        <!-- <h3>Details Posting</h3> -->
+
+        <form method="post" id="editForm">
+            
+            <input type="hidden" id="postId" name="Id" />
+            <div style="text-align: center; margin-bottom: 20px;">
+               <h3>
+                <strong>
+                    <span id="postTitle" name="Title"></span>
+                </strong>
+                </h3>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <img src="~/img/description.png"
+                alt="Description Icon" class="icon"/>
+                    <span id="postDescription" name="Description"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <img src="~/img/mail.png"
+                alt="Mail Icon" class="icon"/> <span id="postLocation" name="Location"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <img src="~/img/phone.png"
+                alt="Phone Icon" class="icon"/> <span id="postSalary" name="Salary"></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+        background-color: rgba(255, 255, 255, 0.9);
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+        text-align: left; 
+    }
+    .tag {
+        display: inline-block; 
+        padding: 5px 10px; 
+        border-radius: 15px; 
+        background-color: #e4dbb7;
+        color: rgb(0, 0, 0); 
+        margin-left: 5px;
+    }
+    .icon{
+        width: 30px;
+        height: 30px; 
+        margin-right: 8px; 
+        vertical-align: middle;
+    }
+    .info-icon {
+        width: 30px; 
+        height: 30px; 
+        transition: transform 0.2s, color 0.2s; 
+    }
+
+    .info-icon:hover {
+        transform: scale(1.6);
+    }
+
+    .close {
+        color: #E4A11B;
+        float: right;
+        font-size: 44px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
+
+
+<script>
+    function openPopup(postId) {
+            fetch(`/JobPosting/GetPost/${postId}`)
+                .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                 console.log('Post Data:', data); 
+                document.getElementById("postTitle").textContent = data.title;
+                document.getElementById("postDescription").textContent = data.description;
+                document.getElementById("postLocation").textContent = data.location;
+                document.getElementById("postSalary").textContent = data.salary;
+            })
+            .catch(error => console.error('There was a problem with the fetch operation:', error));
+
+        document.getElementById("editPopup").style.display = "block";
+    }
+
+    function closePopup() {
+        document.getElementById("editPopup").style.display = "none";
+    }
+</script>

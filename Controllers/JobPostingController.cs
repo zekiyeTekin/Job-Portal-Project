@@ -18,5 +18,16 @@ namespace EFCoreFinalApp.Controllers
             var jobPostings = await _context.JobPosting.Include(j=>j.Companies).ToListAsync();
             return View(jobPostings);
         }
+
+         [HttpGet]
+        public async Task<IActionResult> GetPost (int id)
+        {
+            var posting = await _context.JobPosting.FindAsync(id);
+            if (posting == null)
+            {
+                return NotFound();
+            }
+            return Json(posting);
+        }
     }
 }
