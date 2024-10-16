@@ -46,8 +46,37 @@ namespace EFCoreFinalApp.Controllers
             return Json(company);
         }
 
-        
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Companies model, IFormFile logo)
+        {
+            if (ModelState.IsValid)
+            {
+                if (logo != null)
+                {
+                    var imageFileName = Path.GetFileName(logo.FileName);
+                    var imageFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/images", imageFileName);
+                    using (var stream = new FileStream(imageFilePath, FileMode.Create))
+                    {
+                        await logo.CopyToAsync(stream);
+                    }
+                    model.Logo = "/uploads/images/" + imageFileName; 
+                }
+
+                
+                _context.Companies.Add(model);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
 
     }
 }
