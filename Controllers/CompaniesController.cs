@@ -22,7 +22,7 @@ namespace EFCoreFinalApp.Controllers
             companies = companies.Where(c => c.Industry == industryFilter);
         }
 
-        // Tüm şirketleri ViewBag'e atıyoruz ki dropdown menüde gösterebilelim
+        // Tüm şirketleri ViewBag'e atıyorum ki dropdown menüde gösterebileyim
         ViewBag.Industry = await _context.Companies
             .Select(c => c.Industry)
             .Distinct()

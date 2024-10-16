@@ -64,6 +64,9 @@ namespace EFCoreFinalApp.Migrations
                     b.Property<string>("Industry")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Logo")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 

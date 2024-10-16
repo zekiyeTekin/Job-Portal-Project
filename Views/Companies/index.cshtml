@@ -38,6 +38,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>@Html.DisplayNameFor(m=>m.Logo)</th>
             <th>@Html.DisplayNameFor(m=>m.Name)</th>
             <th>@Html.DisplayNameFor(m=>m.Industry)</th>
             <th style="width: 500px;" ></th>
@@ -47,6 +48,9 @@
         @foreach (var company in Model)
         {
             <tr>
+                <td>
+                    <img src="@company.Logo" alt="@company.Name" style="width: 50px; height: 50px; border-radius: 50%;" />
+                </td>
                 <td> @Html.DisplayFor(modelItem => company.Name)</td>
                 <td>@company.Industry</td>
                 <td>
