@@ -1,0 +1,23 @@
+@model EFCoreFinalApp.Data.JobApply
+
+<h1>Job Application</h1>
+
+<h2>Job Title: @Model.JobPosting.Title</h2>
+<p>@Model.JobPosting.Description</p>
+<p><strong>Location:</strong> @Model.JobPosting.Location</p>
+<p><strong>Salary:</strong> @Model.JobPosting.Salary</p>
+<p><strong>Posted Date:</strong> @Model.JobPosting.PostedDate.ToShortDateString()</p>
+<p><strong>Closing Date:</strong> @Model.JobPosting.ClosingDate.ToShortDateString()</p>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Status"></label>
+        <input asp-for="Status" class="form-control" readonly />
+    </div>
+    <input type="hidden" asp-for="JobPostingId" />
+    <div class="form-group">
+        <label asp-for="CandidatesId"></label>
+        <input asp-for="CandidatesId" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Apply</button>
+</form>

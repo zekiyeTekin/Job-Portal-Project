@@ -1,0 +1,35 @@
+@model IEnumerable<EFCoreFinalApp.Data.JobPosting>
+
+@{
+    ViewData["Title"] = "Job Postings";
+}
+
+<h2>Job Postings</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>CompanyName</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var job in Model)
+        {
+            <tr>
+                <td>@job.Companies.Name</td>
+                <td>@job.Title</td>
+                <td>@job.Description</td>
+                <td>@job.Location</td>
+                <td>@job.Salary</td>
+                <td>
+                    <a asp-action="Create" asp-controller="JobApply" asp-route-jobPostingId="@job.Id" class="btn btn-primary">Apply</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
