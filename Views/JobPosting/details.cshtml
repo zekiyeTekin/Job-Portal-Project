@@ -1,6 +1,69 @@
 @model EFCoreFinalApp.Data.JobPosting
 
-<h2>@Model.Title</h2>
-<p><strong>İlan Açıklaması:</strong> @Model.Description</p>
-<p><strong>Konum:</strong> @Model.Location</p>
-<p><strong>Yayınlanma Tarihi:</strong> @Model.PostedDate.ToShortDateString()</p>
+<div class="job-details-container">
+    <div class="job-details">
+        <h2>@Model.Title</h2>
+
+        @{
+            var currentDate = DateTime.Now;
+            var closingDate = Model.ClosingDate;
+            var daysLeft = (closingDate - currentDate).Days;
+            var isClosed = daysLeft <= 0;
+        }
+       
+        <div class="float-right">
+            @if (isClosed)
+            {
+                <p class="text-danger"><strong>İlan başvuruya kapandı</strong></p>
+            }
+            else
+            {
+                <p class="text-success"><strong>@daysLeft</strong> gün kaldı</p>
+            }
+        </div>
+        <p> @Model.PostedDate.ToShortDateString() / @Model.ClosingDate.ToShortDateString()</p>
+        
+        <p><strong>Şirket:</strong> @Model.Title</p>
+        <p><strong>Ücret:</strong> @Model.Salary</p>
+        <p><strong>Lokasyon:</strong> @Model.Location</p>
+        <p><strong>Açıklama:</strong> @Model.Description</p>
+        
+
+        <form asp-controller="JobPosting" asp-action="Index" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Başvuruyu silmek istediğinize emin misiniz?');">
+            <button type="submit" class="btn btn-danger float-right">Başvuruyu Sil</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .job-details-container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; 
+        min-height: calc(100vh - 2.5rem); 
+        padding-top: 2.5rem; 
+        background-color: #f5f5f5;
+    }
+
+    .job-details {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .job-details h2 {
+        text-align: center;
+    }
+
+    .job-details p {
+        margin: 10px 0;
+    }
+
+    .float-right {
+    float: right;
+    }
+   
+</style>
