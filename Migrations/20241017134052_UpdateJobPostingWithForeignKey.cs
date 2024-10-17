@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EFCoreFinalApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class UpdateJobPostingWithForeignKey : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,6 @@ namespace EFCoreFinalApp.Migrations
                     Salary = table.Column<decimal>(type: "TEXT", nullable: false),
                     PostedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ClosingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false),
                     CompaniesId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

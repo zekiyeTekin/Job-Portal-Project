@@ -34,7 +34,7 @@ namespace EFCoreFinalApp.Controllers{
             var jobApplies = new JobApply
             {
                 JobPostingId = jobApply.Id,
-                //CandidatesId = 1,
+                CandidatesId = 2,
                 Status = "Beklemede" 
             };
             return View(jobApplies);
@@ -45,21 +45,30 @@ namespace EFCoreFinalApp.Controllers{
         public async Task<IActionResult> Create(JobApply jobApply)
         {
             Console.WriteLine($"CandidatesId: {jobApply.CandidatesId}");
-    Console.WriteLine($"JobPostingId: {jobApply.JobPostingId}");
-    Console.WriteLine($"Status: {jobApply.Status}");
+            Console.WriteLine($"JobPostingId: {jobApply.JobPostingId}");
+            Console.WriteLine($"Status: {jobApply.Status}");
+
+             if (string.IsNullOrEmpty(jobApply.Status))
+                {
+                    jobApply.Status = "Beklemede"; 
+                }
+                        
+            
             if (ModelState.IsValid)
             {
                 jobApply.ApplyDate = DateTime.Now;
                 _context.JobApply.Add(jobApply);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index"); 
-            }else{
+            }
+            else
+            {
                 foreach (var error in ModelState.Values.SelectMany(v => v.Errors)){
                     Console.WriteLine(error.ErrorMessage); 
                     }
             }
             
-                    return View(jobApply);
+            return View(jobApply);
         }
    
     }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreFinalApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241017083540_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241017134052_UpdateJobPostingWithForeignKey")]
+    partial class UpdateJobPostingWithForeignKey
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,9 +118,6 @@ namespace EFCoreFinalApp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("CompaniesId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")

@@ -1,0 +1,48 @@
+@model EFCoreFinalApp.Data.JobPosting
+
+@{
+    ViewData["Title"] = "Create Job Posting";
+}
+
+<h2>Bootcamp Ekle</h2>
+<hr>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Salary"></label>
+        <input asp-for="Salary" type="number" class="form-control" />
+        <span asp-validation-for="Salary" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ClosingDate"></label>
+        <input asp-for="ClosingDate" type="date" class="form-control" />
+        <span asp-validation-for="ClosingDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CompaniesId"></label>
+        <select asp-for="CompaniesId" class="form-control" asp-items="@ViewBag.Companies"></select>
+        <input type="hidden" name="CompaniesId" value="@Model.CompaniesId" />
+        <span asp-validation-for="CompaniesId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

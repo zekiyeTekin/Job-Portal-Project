@@ -117,9 +117,6 @@ namespace EFCoreFinalApp.Migrations
                     b.Property<int>("CompaniesId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 

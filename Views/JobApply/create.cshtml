@@ -14,17 +14,12 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="Status"></label>
-        <input asp-for="Status" class="form-control" readonly />
+        <label for="status">Application Status:</label>
+        <input type="text" id="status" name="Status" value="@Model.Status" />
     </div>
     
     <input type="hidden" asp-for="JobPostingId" value="@Model.JobPostingId" /> 
     
-    
-    <div class="form-group">
-        <label asp-for="CandidatesId"></label>
-        <input type="hidden" name="CandidatesId" value="1" />
-    </div>
-    
     <button type="submit" class="btn btn-primary">Apply</button>
 </form>
+
