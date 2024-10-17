@@ -51,16 +51,28 @@ namespace EFCoreFinalApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(JobPosting jobPosting)
         {
-
             jobPosting.PostedDate = DateTime.Now;
-            if (ModelState.IsValid)
+
+            // ModelState kontrolü
+            if (!ModelState.IsValid)
             {
-                _context.JobPosting.Add(jobPosting);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-              ViewBag.Companies = new SelectList(_context.Companies, "Id", "Name", jobPosting.CompaniesId);
+                Console.WriteLine("ModelState hataları:");
+                foreach (var entry in ModelState)
+                {
+                    Console.WriteLine($"Key: {entry.Key}, Errors: {string.Join(", ", entry.Value.Errors.Select(e => e.ErrorMessage))}");
+                }
+
+                ViewBag.Companies = new SelectList(await _context.Companies.ToListAsync(), "Id", "Name", jobPosting.CompaniesId);
                 return View(jobPosting);
+            }
+
+            Console.WriteLine($"CompaniesId: {jobPosting.CompaniesId}"); // Formdan gelen değeri yazdır
+
+            // İş ilanını ekle
+            _context.JobPosting.Add(jobPosting);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
-    }
+
+    }   
 }

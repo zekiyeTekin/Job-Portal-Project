@@ -12,11 +12,12 @@ namespace EFCoreFinalApp.Data{
         public DateTime PostedDate { get; set; }
         public DateTime ClosingDate { get; set; }
 
-        [ForeignKey("Companies")]
+
+        [Required(ErrorMessage = "Companies field is required.")]
         public int CompaniesId { get; set; }
 
         [Required]
-        public Companies Companies { get; set; } = null!;
+        public virtual Companies Companies { get; set; } = null!;
 
         public ICollection<JobApply> JobApply { get; set; } = new List<JobApply>();
     }

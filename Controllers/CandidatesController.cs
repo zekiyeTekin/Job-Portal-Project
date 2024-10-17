@@ -22,7 +22,10 @@ namespace EFCoreFinalApp.Controllers{
             if(id == null){
                 return NotFound();
             }
-            var candidate = await _context.Candidates.FirstOrDefaultAsync(c=>c.Id == id);
+            var candidate = await _context.Candidates
+            .Include(o=>o.JobApply).ThenInclude(j=>j.JobPosting).FirstOrDefaultAsync(c=>c.Id == id);
+
+            //var candidate = await _context.Candidates.FirstOrDefaultAsync(c=>c.Id == id);
             if(candidate == null){
                 return NotFound();
 
@@ -47,7 +50,7 @@ namespace EFCoreFinalApp.Controllers{
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!_context.Candidates.Any(c => c.Id == model.Id))
+                    if (!_context.Candidates.Any(o => o.Id == model.Id))
                     {
                         return NotFound();
                     }

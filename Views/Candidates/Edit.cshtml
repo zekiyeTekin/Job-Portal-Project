@@ -49,8 +49,38 @@
 </div>
 
     <div class="col-4">
-         <h4>Başvuruların</h4>
-         <hr>
-        
+        <h4>Başvurular</h4>
+        <hr>
+        @if (Model.JobApply != null && Model.JobApply.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Başvuru Tarihi</th>
+                        <th>İş İlanı</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var apply in Model.JobApply)
+                    {
+                        <tr>
+                            <td>@apply.ApplyDate.ToShortDateString()</td>
+                            <td>
+                                <a asp-controller="JobPosting" asp-action="Details" asp-route-id="@apply.JobPostingId">
+                                    @apply.JobPosting.Title
+                                </a>
+                            </td>
+                            
+                            <td>@apply.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>Henüz başvuru yapılmamış.</p>
+        }
     </div>
 </div>
