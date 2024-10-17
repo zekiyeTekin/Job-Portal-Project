@@ -14,6 +14,7 @@ namespace EFCoreFinalApp.Controllers
             _context = context;
         }
 
+
          public async Task<IActionResult> Index()
         {
              var jobPostings = await _context.JobPosting.Include(j=>j.Companies).ToListAsync();
@@ -66,12 +67,26 @@ namespace EFCoreFinalApp.Controllers
                 return View(jobPosting);
             }
 
-            Console.WriteLine($"CompaniesId: {jobPosting.CompaniesId}"); // Formdan gelen değeri yazdır
+            Console.WriteLine($"CompaniesId: {jobPosting.CompaniesId}"); 
 
-            // İş ilanını ekle
+           
             _context.JobPosting.Add(jobPosting);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var jobPosting = await _context.JobPosting.FirstOrDefaultAsync(j => j.Id == id);
+
+            if (jobPosting == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobPosting);
         }
 
     }   

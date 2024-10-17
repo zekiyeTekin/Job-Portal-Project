@@ -1,0 +1,6 @@
+@model EFCoreFinalApp.Data.JobPosting
+
+<h2>@Model.Title</h2>
+<p><strong>İlan Açıklaması:</strong> @Model.Description</p>
+<p><strong>Konum:</strong> @Model.Location</p>
+<p><strong>Yayınlanma Tarihi:</strong> @Model.PostedDate.ToShortDateString()</p>
