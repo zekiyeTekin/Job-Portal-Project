@@ -4,7 +4,12 @@
     ViewData["Title"] = "Create Job Posting";
 }
 
-<h2>İş İlanı Ekle</h2>
+
+
+
+<div class="job-details-container">
+
+       <h2>İş İlanı Ekle</h2>
 <hr>
 
 <form asp-action="Create" method="post">
@@ -38,8 +43,39 @@
         <select asp-for="CompaniesId" class="form-control" asp-items="@ViewBag.Companies"></select>
         <span asp-validation-for="CompaniesId" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-danger float-right">Submit</button>
 </form>
 
 
+</div>
 
+
+<style>
+
+    .job-details-container {
+        
+        background-color: #ffffff; 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px; 
+        padding: 30px; 
+        margin: 20px;
+        width: 100%; 
+        max-width: 700px;
+
+        justify-content: center;
+        align-items: flex-start;
+
+    }
+
+    h2 {
+        margin-bottom: 20px; 
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        width: 100%; 
+    }
+</style>

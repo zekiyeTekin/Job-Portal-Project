@@ -33,7 +33,25 @@ namespace EFCoreFinalApp.Controllers
             return Json(posting);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Details(int id)
+        {
+            var jobPosting = await _context.JobPosting.Include(j => j.JobApply).ThenInclude(ja=>ja.Candidates).
+            Include(j=>j.Companies).FirstOrDefaultAsync(j => j.Id == id);
+
+            if (jobPosting == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobPosting);
+        }
+
+
+
+
+
+
+         public async Task<IActionResult> Create()
         {
             var companies = await _context.Companies.ToListAsync();
             if (companies == null || !companies.Any())
@@ -76,19 +94,6 @@ namespace EFCoreFinalApp.Controllers
         }
 
 
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var jobPosting = await _context.JobPosting.Include(j => j.JobApply).ThenInclude(ja=>ja.Candidates).
-            Include(j=>j.Companies).FirstOrDefaultAsync(j => j.Id == id);
-
-            if (jobPosting == null)
-            {
-                return NotFound();
-            }
-
-            return View(jobPosting);
-        }
 
 
     }   
