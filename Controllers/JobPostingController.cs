@@ -79,7 +79,8 @@ namespace EFCoreFinalApp.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var jobPosting = await _context.JobPosting.Include(j => j.JobApply).ThenInclude(ja=>ja.Candidates).FirstOrDefaultAsync(j => j.Id == id);
+            var jobPosting = await _context.JobPosting.Include(j => j.JobApply).ThenInclude(ja=>ja.Candidates).
+            Include(j=>j.Companies).FirstOrDefaultAsync(j => j.Id == id);
 
             if (jobPosting == null)
             {

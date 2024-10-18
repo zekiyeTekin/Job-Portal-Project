@@ -1,70 +1,148 @@
 @model EFCoreFinalApp.Data.JobPosting
 
-<div class="job-details-container">
-    <div class="job-details">
-        
-         @foreach (var jobApply in Model.JobApply)
-        {
-       
-            @if (jobApply.Candidates != null)
-            {
-                <h3>
-                    <p>Sayın @jobApply.Candidates.Username
-                        '@Model.Title'
-                        Başvuru Detayı"
-                    </p>
-                 </h3>
-            }
-            else
-            {
-                <p>Aday bilgisi mevcut değil.</p>
-            }
-        }
 
-        @{
-            var currentDate = DateTime.Now;
-            var closingDate = Model.ClosingDate;
-            var daysLeft = (closingDate - currentDate).Days;
-            var isClosed = daysLeft <= 0;
-        }
-       
-        <div class="float-right">
-            @if (isClosed)
+    
+<div class="container">
+<div class="row">
+
+<div class="col-md-9">
+    <div class="job-details-container">
+        <div class="job-details">
+            
+            @foreach (var jobApply in Model.JobApply)
             {
-                <p class="text-danger"><strong>İlan başvuruya kapandı</strong></p>
+        
+                @if (jobApply.Candidates != null)
+                {
+                    <h3>
+                        <p>Sayın @jobApply.Candidates.Username
+                            '@Model.Title'
+                            Başvuru Detayı
+                        </p>
+                    </h3>
+                    
+                    
+                }
+                else
+                {
+                    <p>Aday bilgisi mevcut değil.</p>
+                }
             }
-            else
-            {
-                <p class="text-success"><strong>@daysLeft</strong> gün kaldı</p>
+
+            @{
+                var currentDate = DateTime.Now;
+                var closingDate = Model.ClosingDate;
+                var daysLeft = (closingDate - currentDate).Days;
+                var isClosed = daysLeft <= 0;
             }
+        
+            <div class="float-right">
+                @if (isClosed)
+                {
+                    <p class="text-danger"><strong>İlan başvuruya kapandı</strong></p>
+                }
+                else
+                {
+                    <p class="text-success"><strong>@daysLeft</strong> gün kaldı</p>
+                }
+            </div>
+            
+            <p> @Model.PostedDate.ToShortDateString() / @Model.ClosingDate.ToShortDateString()</p>
+            
+            
+            <p><strong>Şirket:</strong> @Model.Companies.Name</p>
+            <p><strong>Ücret:</strong> @Model.Salary</p>
+            <p><strong>Lokasyon:</strong> @Model.Location</p>
+            <p><strong>Açıklama:</strong> @Model.Description</p>
+            
+            @foreach (var jobApply in Model.JobApply)
+            { 
+
+                @* @if (!string.IsNullOrEmpty(jobApply.Candidates.ResumePath))
+                    {
+                        <p>
+                            <strong>Gönderilen Cv:</strong>
+                            <a href="~/@jobApply.Candidates.ResumePath" target="_blank">
+                                CV'yi Görüntüle
+                            </a>
+                        </p>
+                    }
+                    else
+                    {
+                        <p>Başvurulan CV görüntülenirken bir sorun oluştu.</p>
+                    } *@
+
+
+                    <form asp-controller="JobApply" asp-action="Delete" asp-route-id="@jobApply.Id" method="post" onsubmit="return confirm('Başvuruyu silmek istediğinize emin misiniz?');">
+                    <button type="submit" class="btn btn-danger float-right">Başvuruyu Sil</button>
+                    </form>
+            }
+
+            
         </div>
-        
-        <p> @Model.PostedDate.ToShortDateString() / @Model.ClosingDate.ToShortDateString()</p>
-        
-        <p><strong>Şirket:</strong> @Model.Title</p>
-        <p><strong>Ücret:</strong> @Model.Salary</p>
-        <p><strong>Lokasyon:</strong> @Model.Location</p>
-        <p><strong>Açıklama:</strong> @Model.Description</p>
-        
-        @foreach (var jobApply in Model.JobApply)
-        { 
-                <form asp-controller="JobApply" asp-action="Delete" asp-route-id="@jobApply.Id" method="post" onsubmit="return confirm('Başvuruyu silmek istediğinize emin misiniz?');">
-                <button type="submit" class="btn btn-danger float-right">Başvuruyu Sil</button>
-                </form>
-        }
-          
-
     </div>
 </div>
 
+        <div class="col-md-3">
+          @if (Model.JobApply.Any() && Model.JobApply.First().Candidates != null)
+                { 
+                    <div class="cv-viewer-container">
+                        <iframe src="~/@Model.JobApply.First().Candidates.ResumePath" class="cv-iframe" id="cvIframe" allowfullscreen></iframe> 
+                   
+                        <a href="~/@Model.JobApply.First().Candidates.ResumePath" target="_blank" class="btn btn-light">
+                        <strong>CV'yi İndir</strong>
+                        </a> 
+                   
+                    </div>
+                }
+                else
+                {
+                    <p>Görüntülenecek CV yok.</p>
+                }
+            
+          
+        </div>
+    </div>
+</div>
+
+ 
 <style>
-    .job-details-container {
+    .container {
+        display: flex;
+       
+    }
+    .job-details-container{
         display: flex;
         justify-content: center;
         align-items: flex-start; 
         min-height: calc(100vh - 2.5rem); 
         padding-top: 2.5rem; 
         background-color: #f5f5f5;
+
+         flex: 1;
+        margin: 10px;
+    }
+    .cv-viewer-container {
+        display: flex;
+        flex-direction: column; 
+        justify-content: flex-start; 
+        flex-grow: 1;
+        padding-top: 2.5rem;
+        width: 100%;
+        flex-grow: 1;
+    }
+
+    .cv-iframe {
+        width: 100%; 
+        border: none; 
+        zoom: 2.0;
+        overflow: auto;
+        
+    }
+    .cv-iframe .src{
+        width: 100%;
+        height: 600px;
+        overflow: auto;
     }
 
     .job-details {
@@ -72,9 +150,12 @@
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        max-width: 600px;
+        max-width: 700px;
         width: 100%;
     }
+    
+    
+
 
     .job-details h2 {
         text-align: center;
@@ -89,3 +170,5 @@
     }
    
 </style>
+
+
