@@ -12,9 +12,9 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         
-        <!-- Sağda Adaylar İçin -->
+        <!-- Aday -->
         <div class="col-md-5 d-flex flex-column align-items-center p-4 shadow-sm mx-2 content-box " style="background-color: #f4e2e2; border-radius: 8px;">
-            <h3>Adaylar İçin</h3>
+            <h3>Sevgili Adaylar</h3>
             <p>Yeni işler keşfedin ve başvurularınızı yönetin.</p>
             <img src="~/img/source.gif" alt="Candidate Image" class="img-fluid" style="max-width: 200px; margin-bottom: 1rem;" />
             <div class="button-group mx-2">
@@ -23,9 +23,9 @@
             </div>
         </div>
 
-        <!-- Solda Şirketler İçin -->
+        <!-- Şirketler -->
         <div class="col-md-5 d-flex flex-column align-items-center p-4 shadow-sm mx-2 content-box" style="background-color: #f4e2e2; border-radius: 8px;">
-            <h3>Şirketler İçin</h3>
+            <h3>Sevgili Şirketler</h3>
             <p>İş ilanlarınızı yönetin ve yeni adaylar bulun.</p>
             <img src="~/img/company.gif" alt="Company Image" class="img-fluid" style="max-width: 200px; margin-bottom: 1rem;" />
             <div class="button-group">
@@ -39,44 +39,39 @@
 
 
 <style>
-    /* Container için margin ayarı */
+    
     .container {
         margin-top: 3rem;
     }
 
-    /* Gölge ve kenarlık ayarları */
     .shadow-sm {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         background-color: #f9f9f9;
     }
-
-    /* Görseller için ayar */
+    
     .img-fluid {
         max-width: 100%;
         height: auto;
     }
     .content-box {
-        min-height: 400px; /* Minimum yükseklik ayarı */
-        max-height: 600px; /* Maksimum yükseklik ayarı */
-        overflow-y: auto; /* İçerik taşarsa kaydırma çubuğu */
+        min-height: 400px; 
+        max-height: 600px; 
+        overflow-y: auto; 
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* İçeriği eşit dağıtır */
+        justify-content: space-between; 
     }
-
-    /* Buton hover efekti */
+    
     .btn:hover {
         transform: scale(1.05);
         transition: all 0.2s ease-in-out;
     }
     .button-group {
     display: flex;
-    gap: 2rem; /* Butonlar arası 2rem boşluk */
-}
+    gap: 2rem; 
+    }
 
-
-    /* Sütunlar arası boşluk */
     .mx-2 {
         margin-left: 1rem;
         margin-right: 1rem;

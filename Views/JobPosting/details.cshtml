@@ -2,7 +2,24 @@
 
 <div class="job-details-container">
     <div class="job-details">
-        <h2>@Model.Title</h2>
+        
+         @foreach (var jobApply in Model.JobApply)
+        {
+       
+            @if (jobApply.Candidates != null)
+            {
+                <h3>
+                    <p>Sayın @jobApply.Candidates.Username
+                        '@Model.Title'
+                        Başvuru Detayı"
+                    </p>
+                 </h3>
+            }
+            else
+            {
+                <p>Aday bilgisi mevcut değil.</p>
+            }
+        }
 
         @{
             var currentDate = DateTime.Now;
@@ -21,6 +38,7 @@
                 <p class="text-success"><strong>@daysLeft</strong> gün kaldı</p>
             }
         </div>
+        
         <p> @Model.PostedDate.ToShortDateString() / @Model.ClosingDate.ToShortDateString()</p>
         
         <p><strong>Şirket:</strong> @Model.Title</p>
@@ -28,10 +46,14 @@
         <p><strong>Lokasyon:</strong> @Model.Location</p>
         <p><strong>Açıklama:</strong> @Model.Description</p>
         
+        @foreach (var jobApply in Model.JobApply)
+        { 
+                <form asp-controller="JobApply" asp-action="Delete" asp-route-id="@jobApply.Id" method="post" onsubmit="return confirm('Başvuruyu silmek istediğinize emin misiniz?');">
+                <button type="submit" class="btn btn-danger float-right">Başvuruyu Sil</button>
+                </form>
+        }
+          
 
-        <form asp-controller="JobPosting" asp-action="Index" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Başvuruyu silmek istediğinize emin misiniz?');">
-            <button type="submit" class="btn btn-danger float-right">Başvuruyu Sil</button>
-        </form>
     </div>
 </div>
 

@@ -54,7 +54,7 @@ namespace EFCoreFinalApp.Controllers
         {
             jobPosting.PostedDate = DateTime.Now;
 
-            // ModelState kontrolü
+            
             if (!ModelState.IsValid)
             {
                 Console.WriteLine("ModelState hataları:");
@@ -79,7 +79,7 @@ namespace EFCoreFinalApp.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var jobPosting = await _context.JobPosting.FirstOrDefaultAsync(j => j.Id == id);
+            var jobPosting = await _context.JobPosting.Include(j => j.JobApply).ThenInclude(ja=>ja.Candidates).FirstOrDefaultAsync(j => j.Id == id);
 
             if (jobPosting == null)
             {

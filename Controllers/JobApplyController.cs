@@ -70,6 +70,29 @@ namespace EFCoreFinalApp.Controllers{
             
             return View(jobApply);
         }
-   
+
+
+      
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var jobApply = await _context.JobApply.FindAsync(id);
+            if (jobApply == null)
+            {
+                return NotFound();
+            }
+
+            
+            _context.JobApply.Remove(jobApply);
+            await _context.SaveChangesAsync();
+
+            
+            return RedirectToAction("Edit", "Candidates", new { id = jobApply.CandidatesId });
+        }
+
+
+        
     }
 }
