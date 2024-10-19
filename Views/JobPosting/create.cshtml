@@ -4,9 +4,6 @@
     ViewData["Title"] = "Create Job Posting";
 }
 
-
-
-
 <div class="job-details-container">
 
        <h2>İş İlanı Ekle</h2>
@@ -15,32 +12,32 @@
 <form asp-action="Create" method="post">
     <div class="form-group">
         <label asp-for="Title"></label>
-        <input asp-for="Title" class="form-control" />
+        <input asp-for="Title" class="form-control" required  />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" />
+        <input asp-for="Description" class="form-control" required />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Location"></label>
-        <input asp-for="Location" class="form-control" />
+        <input asp-for="Location" class="form-control" required />
         <span asp-validation-for="Location" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Salary"></label>
-        <input asp-for="Salary" class="form-control" />
+        <input asp-for="Salary" class="form-control" required />
         <span asp-validation-for="Salary" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="ClosingDate"></label>
-        <input asp-for="ClosingDate" class="form-control" type="date" />
+        <input asp-for="ClosingDate" class="form-control" type="date" id="closingDate" required />
         <span asp-validation-for="ClosingDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="CompaniesId"></label>
-        <select asp-for="CompaniesId" class="form-control" asp-items="@ViewBag.Companies"></select>
+        <select asp-for="CompaniesId" class="form-control" asp-items="@ViewBag.Companies" required></select>
         <span asp-validation-for="CompaniesId" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-danger float-right">Submit</button>
@@ -79,3 +76,10 @@
         width: 100%; 
     }
 </style>
+
+<script>
+    var today = new Date().toISOString().split('T')[0];
+    var dateInput = document.getElementById("closingDate");
+    dateInput.setAttribute('min', today);
+    dateInput.setAttribute('value', today);
+</script>

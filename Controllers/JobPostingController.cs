@@ -63,7 +63,6 @@ namespace EFCoreFinalApp.Controllers
             {
                 ViewBag.Companies = new SelectList(companies, "Id", "Name");
             }
-
             return View(new JobPosting());
         }
 
@@ -73,7 +72,7 @@ namespace EFCoreFinalApp.Controllers
         {
             jobPosting.PostedDate = DateTime.Now;
 
-            
+            //Console.WriteLine($"Title: {jobPosting.Title}, Description: {jobPosting.Description}, Location: {jobPosting.Location}, Salary: {jobPosting.Salary}, CompaniesId: {jobPosting.CompaniesId}, ClosingDate: {jobPosting.ClosingDate}");
             if (!ModelState.IsValid)
             {
                 Console.WriteLine("ModelState hataları:");
@@ -81,14 +80,12 @@ namespace EFCoreFinalApp.Controllers
                 {
                     Console.WriteLine($"Key: {entry.Key}, Errors: {string.Join(", ", entry.Value.Errors.Select(e => e.ErrorMessage))}");
                 }
-
-                ViewBag.Companies = new SelectList(await _context.Companies.ToListAsync(), "Id", "Name", jobPosting.CompaniesId);
-                return View(jobPosting);
             }
 
-            Console.WriteLine($"CompaniesId: {jobPosting.CompaniesId}"); 
+            ViewBag.Companies = new SelectList(await _context.Companies.ToListAsync(), "Id", "Name", jobPosting.CompaniesId);
 
-           
+            //Console.WriteLine($"CompaniesId: {jobPosting.CompaniesId}");
+
             _context.JobPosting.Add(jobPosting);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
