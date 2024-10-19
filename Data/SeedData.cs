@@ -64,6 +64,47 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                 );
                 context.SaveChanges();
             }
+
+            if(!context.JobApply.Any()){
+                context.JobApply.AddRange(
+                    new JobApply{
+                        Status = "Beklemede",
+                        ApplyDate = DateTime.Now.AddDays(-5),
+                        JobPostingId = 1,
+                        CandidatesId = 1
+                    },
+                    new JobApply{
+                        Status = "Beklemede",
+                        ApplyDate = DateTime.Now,
+                        JobPostingId = 2,
+                        CandidatesId = 1
+                    },
+                    new JobApply{
+                        Status = "Beklemede",
+                        ApplyDate = DateTime.Now.AddDays(-1),
+                        JobPostingId = 3,
+                        CandidatesId = 1
+                    },
+                    new JobApply{
+                        Status = "Beklemede",
+                        ApplyDate = DateTime.Now,
+                        JobPostingId = 1,
+                        CandidatesId = 2
+                    },
+                    new JobApply{
+                        Status = "Beklemede",
+                        ApplyDate = DateTime.Now.AddDays(-2),
+                        JobPostingId = 3,
+                        CandidatesId = 2
+                    }
+                );
+                context.SaveChanges();
+            }
+            
+
+
+            
+
             }
         }
     }
