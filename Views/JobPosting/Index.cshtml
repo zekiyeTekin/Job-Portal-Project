@@ -82,6 +82,13 @@
                 <img src="~/img/money.png"
                 alt="Phone Icon" class="icon"/> <span id="postSalary" name="Salary"></span>
             </div>
+
+
+            <div id="applyButtonContainer" style="text-align: center; margin-top: 20px;">
+                <a id="applyButton" asp-action="Create" asp-controller="JobApply">Apply</a>
+            </div>
+
+           
             
         </form>
     </div>
@@ -147,6 +154,26 @@
         text-decoration: none;
         cursor: pointer;
     }
+    #applyButton {
+        display: none; 
+        color: white; 
+        background-color: rgb(153, 156, 13); 
+        border: none; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        max-width: 200px;
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+        text-decoration: none;
+    }
+
+    #applyButtonContainer {
+        text-align: center; 
+        margin-top: 20px; 
+    }
+
 </style>
 
 
@@ -176,6 +203,13 @@
                 document.getElementById("postSalary").textContent = data.salary;
                 document.getElementById("postCompanyName").textContent = data.companies.name;
                 document.getElementById("postCompanyLogo").src = data.companies.logo;
+
+
+                
+                const applyButton = document.getElementById("applyButton");
+                applyButton.setAttribute("href", `/JobApply/Create?jobPostingId=${postId}`);
+                applyButton.style.display = "block";
+                document.getElementById("postId").value = postId;
             })
             .catch(error => console.error('There was a problem with the fetch operation:', error));
 

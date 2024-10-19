@@ -51,7 +51,7 @@ namespace EFCoreFinalApp.Controllers
 
 
 
-
+//TODO: Post oluşturma islemi düzenle şu an çalışmıyor
          public async Task<IActionResult> Create()
         {
             var companies = await _context.Companies.ToListAsync();
