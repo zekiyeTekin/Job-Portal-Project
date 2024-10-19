@@ -27,7 +27,7 @@
                          <img src="~/img/info.png"
                          alt="Info Icon" class="info-icon"
                          />    
-                        </a>
+                    </a>
                 </td>
                 <td>
                     <a asp-action="Create" asp-controller="JobApply" asp-route-jobPostingId="@job.Id" class="btn btn-primary">Apply</a>
@@ -45,6 +45,12 @@
         <form method="post" id="editForm">
             
             <input type="hidden" id="postId" name="Id" />
+            
+            <div style="margin-bottom: 10px;">
+                 <img id="postCompanyLogo" alt="Company Logo" style="width: 50px; height: 50px; " class="icon"/>
+                <strong><span id="postCompanyName" name="postCompanyName"></span></strong>
+            </div>
+            <hr/>
             <div style="text-align: center; margin-bottom: 20px;">
                <h3>
                 <strong>
@@ -52,34 +58,31 @@
                 </strong>
                 </h3>
             </div>
+            
             <div style="margin-bottom: 10px;">
-                İlan Yayınlanma:
-                    <span id="postPostedDate"name="PostedDate"></span>
+                <img src="~/img/date.png"
+                alt="Publish Date Icon" class="icon"/>
+                <span id="postPostedDate"name="PostedDate"></span>/ <img src="~/img/endDate.png"
+                alt="End Date Icon" class="icon"/>
+                 <span id="postClosingDate"name="ClosingDate"></span>
             </div>
-            <div style="margin-bottom: 10px;">
-                Son başvuru:
-                    <span id="postClosingDate"name="ClosingDate"></span>
-            </div>
+            @* <div style="margin-bottom: 10px;">
+                <img id="postCompanyLogo" alt="Company Logo" style="width: 100px; height: 100px;"/>
+            </div> *@
             <div style="margin-bottom: 10px;">
                 <img src="~/img/description.png"
                 alt="Description Icon" class="icon"/>
                     <span id="postDescription" name="Description"></span>
             </div>
             <div style="margin-bottom: 10px;">
-                <img src="~/img/mail.png"
+                <img src="~/img/destination.png"
                 alt="Mail Icon" class="icon"/> <span id="postLocation" name="Location"></span>
             </div>
             <div style="margin-bottom: 10px;">
-                <img src="~/img/phone.png"
+                <img src="~/img/money.png"
                 alt="Phone Icon" class="icon"/> <span id="postSalary" name="Salary"></span>
             </div>
-            <div style="margin-bottom: 10px;">
-                Şirket Adı:
-                <strong><span id="postCompanyName" name="postCompanyName"></span></strong>
-            </div>
-            <div style="margin-bottom: 10px;">
-                <img id="postCompanyLogo" alt="Company Logo" style="width: 100px; height: 100px;"/>
-            </div>
+            
         </form>
     </div>
 </div>
@@ -158,7 +161,13 @@
                 return response.json();
             })
             .then(data => {
-                 console.log('Post Data:', data); 
+                console.log('Post Data:', data); 
+                if (data.companies) {
+                        document.getElementById("postCompanyName").textContent = data.companies.name || 'N/A';
+                        document.getElementById("postCompanyLogo").src = data.companies.logo || ''; 
+                    }
+                
+                
                 document.getElementById("postTitle").textContent = data.title;
                 document.getElementById("postPostedDate").textContent = data.postedDate.split('T')[0];
                 document.getElementById("postClosingDate").textContent = data.closingDate.split('T')[0];

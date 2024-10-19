@@ -25,10 +25,11 @@ namespace EFCoreFinalApp.Controllers
          [HttpGet]
         public async Task<IActionResult> GetPost(int id)
         {
-            var posting = await _context.JobPosting.FindAsync(id);
+            var posting = await _context.JobPosting
+            .Include(j => j.Companies).FirstOrDefaultAsync(j => j.Id == id);
             if (posting == null)
             {
-                return NotFound();
+                return NotFound("Job posting not found");
             }
             return Json(posting);
         }

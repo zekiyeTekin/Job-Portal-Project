@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace EFCoreFinalApp.Data{
 
@@ -13,6 +14,7 @@ namespace EFCoreFinalApp.Data{
         public string? Phone {get; set;}
         public string? Industry {get; set;}
     
+        [JsonIgnore]
         public ICollection<JobPosting> JobPostings { get; set; } = new List<JobPosting>();
         
     }
