@@ -50,6 +50,7 @@ namespace EFCoreFinalApp.Controllers{
         {
             
                 jobApply.ApplyDate = DateTime.Now;
+                jobApply.Status = "Başvurunuz alındı";
                 jobApply.Candidates = await _context.Candidates.FindAsync(jobApply.CandidatesId);
                 jobApply.JobPosting = await _context.JobPosting.FindAsync(jobApply.JobPostingId);
 
