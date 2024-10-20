@@ -30,7 +30,8 @@
                     </a>
                 </td>
                 <td>
-                    <a asp-action="Create" asp-controller="JobApply" asp-route-jobPostingId="@job.Id" class="btn btn-primary">Apply</a>
+                    <a
+                    asp-action="Create" asp-controller="JobApply" asp-route-jobPostingId="@job.Id" class="btn apply-btn">Apply</a>
                 </td>
             </tr>
         }
@@ -84,8 +85,8 @@
             </div>
 
 
-            <div id="applyButtonContainer" style="text-align: center; margin-top: 20px;">
-                <a id="applyButton" asp-action="Create" asp-controller="JobApply">Apply</a>
+            <div id="applyButtonContainer" style="text-align: center; margin-top: 20px; ">
+                <a id="applyButton" asp-action="Create" asp-controller="JobApply" >Apply</a>
             </div>
 
            
@@ -168,6 +169,16 @@
         margin: 0 auto;
         text-decoration: none;
     }
+    .apply-btn {
+        background-color: rgba(153, 156, 13);
+        color: white; 
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+}
+
 
     #applyButtonContainer {
         text-align: center; 

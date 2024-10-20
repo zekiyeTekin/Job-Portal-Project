@@ -12,13 +12,17 @@ namespace EFCoreFinalApp.Data{
         
         public DateTime ApplyDate {get;set;}
 
-        [Required]
+        [Required(ErrorMessage = "JobPosting field is required.")]
         public int JobPostingId { get; set; }
-        public JobPosting JobPosting { get; set; } = null!;
 
         [Required]
+        public virtual JobPosting? JobPosting { get; set; } = null!;
+
+        [Required(ErrorMessage = "Candidates field is required.")]
         public int CandidatesId { get; set; }
-        public Candidates Candidates { get; set; } = null!;
+
+        [Required]
+        public virtual Candidates? Candidates { get; set; } = null!;
         
     }
 }

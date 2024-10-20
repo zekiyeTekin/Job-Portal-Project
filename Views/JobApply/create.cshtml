@@ -14,12 +14,16 @@
 
 <form asp-action="Create" method="post">
     <div class="form-group">
-        <label for="status">Application Status:</label>
-        <input type="text" id="status" name="Status" value="@Model.Status" />
+        <label for="candidate">Select Candidate:</label>
+        <select asp-for="CandidatesId" class="form-control" required>
+            @foreach (var candidate in ViewBag.Candidates)
+            {
+                <option value="@candidate.Id">@candidate.Name</option>
+            }
+        </select>
     </div>
-    
-    <input type="hidden" asp-for="JobPostingId" value="@Model.JobPostingId" /> 
-    
+    <input type="hidden" asp-for="JobPostingId" value="@Model.JobPostingId" required/>
     <button type="submit" class="btn btn-primary">Apply</button>
 </form>
+
 

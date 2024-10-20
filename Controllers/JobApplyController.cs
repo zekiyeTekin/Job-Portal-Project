@@ -1,5 +1,6 @@
 using EFCoreFinalApp.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreFinalApp.Controllers{
@@ -21,55 +22,45 @@ namespace EFCoreFinalApp.Controllers{
             }
 
         [HttpGet]
-        public IActionResult Create(int jobPostingId)
+        public async Task<IActionResult> Create(int jobPostingId)
         {
-            var jobApply = _context.JobPosting.Find(jobPostingId);
-            
-            if (jobApply == null)
+            var jobPosting = await _context.JobPosting.FindAsync(jobPostingId);
+
+            if (jobPosting == null)
             {
                 return NotFound(); 
             }
+            
+            ViewBag.Candidates = await _context.Candidates
+                              .Select(c => new { c.Id, c.Name })
+                              .ToListAsync();
+            //ViewBag.JobPosting = new SelectList(await _context.JobPosting.ToListAsync(), "Id","Title");
 
-            ViewBag.JobPosting = jobApply;        
-            var jobApplies = new JobApply
-            {
-                JobPostingId = jobApply.Id,
-                CandidatesId = 2,
-                Status = "Beklemede" 
+             var jobApply = new JobApply 
+            { 
+                JobPostingId = jobPostingId 
             };
-            return View(jobApplies);
+
+            return View(jobApply);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(JobApply jobApply)
         {
-            Console.WriteLine($"CandidatesId: {jobApply.CandidatesId}");
-            Console.WriteLine($"JobPostingId: {jobApply.JobPostingId}");
-            Console.WriteLine($"Status: {jobApply.Status}");
-
-             if (string.IsNullOrEmpty(jobApply.Status))
-                {
-                    jobApply.Status = "Beklemede"; 
-                }
-                        
             
-            if (ModelState.IsValid)
-            {
                 jobApply.ApplyDate = DateTime.Now;
+                jobApply.Candidates = await _context.Candidates.FindAsync(jobApply.CandidatesId);
+                jobApply.JobPosting = await _context.JobPosting.FindAsync(jobApply.JobPostingId);
+
                 _context.JobApply.Add(jobApply);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index"); 
-            }
-            else
-            {
-                foreach (var error in ModelState.Values.SelectMany(v => v.Errors)){
-                    Console.WriteLine(error.ErrorMessage); 
-                    }
-            }
-            
-            return View(jobApply);
+
+               
+                return RedirectToAction("Index");
+
         }
+
 
 
       
