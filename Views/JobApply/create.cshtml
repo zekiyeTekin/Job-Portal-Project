@@ -1,5 +1,10 @@
 @model EFCoreFinalApp.Data.JobApply
 
+@if (ViewBag.ErrorMessage != null)
+{
+    <p class="alert alert-danger">@ViewBag.ErrorMessage</p>
+}
+
 @if (Model.JobPosting != null)
             {
                 <div class="container my-5">

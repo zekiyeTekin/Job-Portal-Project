@@ -49,6 +49,21 @@ namespace EFCoreFinalApp.Controllers{
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(JobApply jobApply)
         {
+            var existingApplication = await _context.JobApply
+        .Where(j => j.CandidatesId == jobApply.CandidatesId && j.JobPostingId == jobApply.JobPostingId)
+        .FirstOrDefaultAsync();
+
+        if (existingApplication != null)
+        {
+            
+        ViewBag.ErrorMessage = "Bu ilana zaten başvuru yapmıştınız.";
+        
+        ViewBag.Candidates = await _context.Candidates
+                              .Select(c => new { c.Id, c.Name })
+                              .ToListAsync();
+        
+        return View(jobApply);
+        }
             
                 jobApply.ApplyDate = DateTime.Now;
                 jobApply.Status = "Başvurunuz alındı";

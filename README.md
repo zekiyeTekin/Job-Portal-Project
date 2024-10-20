@@ -30,6 +30,7 @@
 
 ### 2. İş İlanına Başvuru
 - Giriş yapmış adaylar, iş ilanlarına başvurabilir.
+- Adaylar ilana bir kez başvuru yapabilir, aynı ilana ikinci kez başvuru yapamaz.
 - Giriş yapmamış kullanıcılar, iş ilanlarını yalnızca görüntüleyebilir ancak başvuru yapamaz. (TODO)
 
 ### 3. İş İlanı Detayları
