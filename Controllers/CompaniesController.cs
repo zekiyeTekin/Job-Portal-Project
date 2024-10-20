@@ -13,7 +13,7 @@ namespace EFCoreFinalApp.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index(String industryFilter){
-            var companies = from c in _context.Companies
+        var companies = from c in _context.Companies
                         select c;
 
         // Industry'e göre filtreleme yapılıyor
@@ -27,6 +27,7 @@ namespace EFCoreFinalApp.Controllers
             .Select(c => c.Industry)
             .Distinct()
             .ToListAsync();
+        
         
         ViewBag.SelectedIndustry = industryFilter;
 
@@ -78,5 +79,26 @@ namespace EFCoreFinalApp.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> listPostCompany(int companyId)
+        {
+           
+            var jobPostings = await _context.JobPosting
+                .Where(jp => jp.CompaniesId == companyId)
+                .ToListAsync();
+
+            if (jobPostings == null || !jobPostings.Any())
+            {
+                return NotFound(); 
+            }
+
+            return View(jobPostings); 
+        }
+
+
+
+
+       
     }
 }
