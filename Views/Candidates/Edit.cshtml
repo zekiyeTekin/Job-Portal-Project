@@ -2,10 +2,11 @@
 
 
 
-<h2>Aday Güncelleme Ekranı</h2>
+<h3>Aday Güncelleme Ekranı</h3>
 <hr>
 
 <div class="row">
+    <div class="job-details-container">
     <div class="col-8">
         <form asp-controller="Candidates" asp-action="Edit" method="post">
         <input type="hidden" asp-for="Id">
@@ -44,12 +45,14 @@
         </div>
         
        
-        <button type="submit" class="btn btn-success">Kaydet</button>
+        <button type="submit" class="btn btn-success float-right">Bilgileri Güncelle</button>
         </form>
+</div>
 </div>
 
     <div class="col-4">
-        <h4>Başvurular</h4>
+<div class="job-details-container">
+        <h4 style="color: rgb(115, 117, 5); text-align: center;">Başvurularınız</h4>
         <hr>
         @if (Model.JobApply != null && Model.JobApply.Any())
         {
@@ -87,19 +90,47 @@
             <p>Henüz başvuru yapılmamış.</p>
         }
     </div>
+    
+    </div>
+
+
 </div>
 
+
 <style>
+    .job-details-container {
+        background-color: #ffffff; 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px; 
+        padding: 30px; 
+        margin: 20px;
+        width: 100%; 
+        max-width: 600px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    h3 {
+        margin-bottom: 20px; 
+        text-align: center;
+    }
    
-a {
-    
-    color: #178306;  
-    text-decoration: none; 
-}
+    a {
+        color: #178306;  
+        text-decoration: none; 
+    }
 
+    a:hover {
+        color: #17830695; 
+    }
+    .btn-success {
+    background-color: rgb(105, 107, 0);
+    border-color: #84af0f; 
+   }
+   .btn-success:hover {
+    background-color: rgb(153, 156, 13);
+    border-color: #84af0f; 
+   }
 
-a:hover {
-    color: #17830695; 
-}
 
 </style>

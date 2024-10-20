@@ -1,27 +1,81 @@
 @model IEnumerable<EFCoreFinalApp.Data.JobApply>
 
-<h1>Job Applications</h1>
-
-<table class="table">
-    <thead>
+<h2>İlan Başvuruları</h2>
+<div class="table-container">
+<table class="table table-hover">
+    <thead class="table-header">
         <tr>
-            <th>ID</th>
-            <th>Job Title</th>
-            <th>Candidate</th>
-            <th>Status</th>
-            <th>Apply Date</th>
+            
+            <th>İlan Başlığı</th>
+            <th>Aday</th>
+            <th>Başvuru Durumu</th>
+            <th>Başvuru Tarihi</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var apply in Model)
         {
             <tr>
-                <td>@apply.Id</td>
+               
                 <td>@apply.JobPosting.Title</td>
-                <td>@apply.Candidates.Name</td>
+                <td>@apply.Candidates.Username</td>
                 <td>@apply.Status</td>
                 <td>@apply.ApplyDate.ToShortDateString()</td>
             </tr>
         }
     </tbody>
 </table>
+</div>
+
+<style>
+       .table-container {
+        margin-bottom: 30px; 
+    }
+
+    h2 {
+        text-align: center; 
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    hr {
+        border: none;
+        height: 2px;
+        background-color: #ccc;
+        margin-bottom: 30px;
+    }
+
+    .table {
+        width: 100%; 
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        border-radius: 8px;
+        overflow: hidden; 
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f9f9f9; 
+    }
+
+    .table-header {
+        background-color: #859f53; 
+        color: white;
+        text-align: left;
+    }
+
+    th, td {
+        padding: 15px 20px;
+        text-align: left;
+        vertical-align: middle; 
+    }
+
+     .btn-success {
+    background-color: #859f53;
+    border-color: rgb(104, 140, 5); 
+   }
+   .btn-success:hover {
+    background-color: #99bd57;
+    border-color: rgb(104, 140, 5); 
+   }
+</style>

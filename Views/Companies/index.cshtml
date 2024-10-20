@@ -5,7 +5,7 @@
 }
 
 <h2 class="d-flex align-items-center justify-content-between">
-    <span>Companies</span> 
+    <span>Şirketler</span> 
      <div class="d-flex">
         <form asp-action="Index" class="d-flex" method="get">
             <!-- <input type="search" class="form-control me-2" name="searchString" value="@ViewBag.SearchString" placeholder="Anahtar Kelime" style="width: 200px;">
@@ -28,15 +28,16 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-secondary">Filtrele</button>
+            <button type="submit" class="btn btn-success">Filtrele</button>
 
         </form>
     </div>
 </h2>
  <hr>
 
-<table class="table">
-    <thead>
+<div class="table-container">
+<table class="table  table-hover">
+    <thead class="table-header">
         <tr>
             <th>@Html.DisplayNameFor(m=>m.Logo)</th>
             <th>@Html.DisplayNameFor(m=>m.Name)</th>
@@ -64,6 +65,7 @@
         }
     </tbody>
 </table>
+</div>
 
 
 <div id="editPopup" class="modal">
@@ -150,8 +152,6 @@
         transform: scale(1.6);
     }
 
-
-
     .close {
         color: #E4A11B;
         float: right;
@@ -165,6 +165,63 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+
+
+
+
+
+
+    .table-container {
+        margin-bottom: 30px; 
+    }
+
+    h2 {
+        text-align: center; 
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    hr {
+        border: none;
+        height: 2px;
+        background-color: #ccc;
+        margin-bottom: 30px;
+    }
+
+    .table {
+        width: 100%; 
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        border-radius: 8px;
+        overflow: hidden; 
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f9f9f9; 
+    }
+
+    .table-header {
+        background-color: #859f53; 
+        color: white;
+        text-align: left;
+    }
+
+    th, td {
+        padding: 15px 20px;
+        text-align: left;
+        vertical-align: middle; 
+    }
+
+     .btn-success {
+    background-color: #859f53;
+    border-color: rgb(104, 140, 5); 
+   }
+   .btn-success:hover {
+    background-color: #99bd57;
+    border-color: rgb(104, 140, 5); 
+   }
 </style>
 
 

@@ -2,8 +2,10 @@
 
 @if (Model.JobPosting != null)
             {
-                <div class="d-flex justify-content-between align-items-center">
-                    <h1>Başvurulan İlan: @Model.JobPosting.Title</h1>
+                <div class="container my-5">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h2>Başvurulan İlan: <strong>@Model.JobPosting.Title</strong></h2>
+                    </div>
                 </div>
 
             }
