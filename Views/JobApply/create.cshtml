@@ -1,29 +1,72 @@
 @model EFCoreFinalApp.Data.JobApply
 
-<h1>Job Application</h1>
-
 @if (Model.JobPosting != null)
-{
-    <h2>Job Title: @Model.JobPosting.Title</h2>
-    <p>@Model.JobPosting.Description</p>
-    <p><strong>Location:</strong> @Model.JobPosting.Location</p>
-    <p><strong>Salary:</strong> @Model.JobPosting.Salary</p>
-    <p><strong>Posted Date:</strong> @Model.JobPosting.PostedDate.ToShortDateString()</p>
-    <p><strong>Closing Date:</strong> @Model.JobPosting.ClosingDate.ToShortDateString()</p>
+            {
+                <div class="d-flex justify-content-between align-items-center">
+                    <h1>Başvurulan İlan: @Model.JobPosting.Title</h1>
+                </div>
+
+            }
+
+
+<div class="container my-5">
+    <div class="card shadow">
+        <div class="card-body">
+            @if (Model.JobPosting != null)
+            {
+                <div class="d-flex justify-content-between align-items-center">
+                    @* <h2>Başvurduğunuz İlan: @Model.JobPosting.Title</h2> *@
+                   <div class="flex-grow-1"></div>  @* Boşluk bırakmamı sağladı *@
+                    <p>İlan Son başvuru Tarihi: <strong>@Model.JobPosting.ClosingDate.ToShortDateString()</strong></p>
+                </div>
+                <div class="mt-4"></div>
+
+            }
+
+
+            <form asp-action="Create" method="post">
+                <div class="form-group">
+                    <label for="candidate">Başvuru yapacak kişiyi seçiniz:</label>
+                    <select asp-for="CandidatesId" class="form-control" required>
+                        @foreach (var candidate in ViewBag.Candidates)
+                        {
+                            <option value="@candidate.Id">@candidate.Name</option>
+                        }
+                    </select>
+                </div>
+                <input type="hidden" asp-for="JobPostingId" value="@Model.JobPostingId" required/>
+                <button type="submit" class="btn btn-success my-3 mx-auto w-50 d-block">Başvur</button>
+            </form>
+
+</div>
+    </div>
+</div>
+
+<style> 
+.container {
+    max-width: 600px; 
+    margin: auto;
 }
 
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="candidate">Select Candidate:</label>
-        <select asp-for="CandidatesId" class="form-control" required>
-            @foreach (var candidate in ViewBag.Candidates)
-            {
-                <option value="@candidate.Id">@candidate.Name</option>
-            }
-        </select>
-    </div>
-    <input type="hidden" asp-for="JobPostingId" value="@Model.JobPostingId" required/>
-    <button type="submit" class="btn btn-primary">Apply</button>
-</form>
+.card {
+    border-radius: 10px; 
+    overflow: hidden; 
+}
 
+.card-body {
+    padding: 20px;
+}
 
+.btn-success {
+    background-color: rgb(153, 156, 13);
+    border-color: #d7fadf; 
+   
+}
+
+.btn-success:hover {
+    background-color: rgb(173, 174, 112);  
+    border-color:  rgb(153, 156, 13); 
+}
+
+}
+</style>

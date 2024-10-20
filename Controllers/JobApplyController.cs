@@ -38,6 +38,7 @@ namespace EFCoreFinalApp.Controllers{
 
              var jobApply = new JobApply 
             { 
+                JobPosting = jobPosting,
                 JobPostingId = jobPostingId 
             };
 
