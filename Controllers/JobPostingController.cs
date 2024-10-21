@@ -88,6 +88,24 @@ namespace EFCoreFinalApp.Controllers
         }
 
 
+
+          public IActionResult JobApplications(int jobPostingId)
+        {
+            var jobPosting = _context.JobPosting
+                .Include(j => j.JobApply)
+                .ThenInclude(ja => ja.Candidates)
+                .FirstOrDefault(j => j.Id == jobPostingId);
+
+            if (jobPosting == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobPosting);
+        }
+
+
+
         
 
 

@@ -1,0 +1,102 @@
+@model EFCoreFinalApp.Data.JobPosting
+
+@{
+    ViewData["Title"] = "Job Applications for " + Model.Title;
+}
+
+<h2>@Model.Title İlanına Başvuranların Listesi</h2>
+
+
+ @if (Model.JobApply != null && Model.JobApply.Any())
+{
+<div class="table-container">
+    <table class="table table-hover">
+       
+        <thead class="table-header">
+            <tr>
+                <th>Başvuran Adı</th>
+                <th>E-posta</th>
+                <th>Telefon</th>
+                <th>Başvuru Tarihi</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var application in Model.JobApply)
+            {
+                <tr>
+                    <td>@application.Candidates?.Name </td>
+                    <td>@application.Candidates?.Email </td>
+                    <td>@application.Candidates?.Phone </td>
+                    <td>@application.ApplyDate.ToShortDateString()</td>
+                    <td>@application.Status</td>
+                    <td>
+                <form action="@Url.Action("UpdateStatus", "JobPosting")" method="post">
+                    <input type="hidden" name="applicationId" value="@application.Id" />
+                    <input type="hidden" name="newStatus" value="Mülakat Aşaması" />
+                    <button type="submit" class="btn btn-primary">Mülakat Aşamasına Geç</button>
+                </form>
+                </td>
+                </tr>
+            }
+        </tbody>
+        
+    </table>
+</div>
+}
+else
+{
+    <p>Henüz başvuru yapan adayınız yok.</p>
+}
+
+<a href="@Url.Action("listPostCompany", "Companies", new { companyId = Model.CompaniesId })" class="btn btn-success">Açık Pozisyonlar Listesine Geri Dön</a>
+
+
+
+<style>
+    .table-container {
+        margin-bottom: 30px; 
+    }
+
+    h2 {
+        text-align: center; 
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .table {
+        width: 100%; 
+        background-color: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+        border-radius: 8px;
+        overflow: hidden; 
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f9f9f9; 
+    }
+
+    .table-header {
+        background-color: #859f53; 
+        color: white;
+        text-align: left;
+    }
+
+    th, td {
+        padding: 15px 20px;
+        text-align: left;
+        vertical-align: middle; 
+    }
+
+    .btn-success {
+        background-color: #8a9f53;
+        border-color: rgb(104, 140, 5); 
+        float: right;
+    }
+
+    .btn-success:hover {
+        background-color: #99bd57;
+        border-color: rgb(104, 140, 5); 
+    }
+</style>

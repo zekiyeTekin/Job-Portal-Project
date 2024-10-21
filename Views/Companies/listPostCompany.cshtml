@@ -13,6 +13,7 @@
             <th>İlan Adı</th>
             <th>İlan Açıklaması</th>
             <th>İlan Tarihi</th>
+            <th></th>
             
         </tr>
     </thead>
@@ -23,6 +24,12 @@
                 <td>@job.Title</td>
                 <td>@job.Description</td>
                 <td>@job.PostedDate.ToShortDateString()</td>
+                <td>
+                    <a>
+                        <a asp-controller="JobPosting" asp-action="JobApplications" asp-route-jobPostingId="@job.Id" class="btn btn-success">Başvuranları Görüntüle</a>
+
+                    </a>
+                </td>
               
                 
             </tr>
