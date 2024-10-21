@@ -83,10 +83,11 @@ namespace EFCoreFinalApp.Controllers
         [HttpGet]
         public async Task<IActionResult> listPostCompany(int companyId)
         {
-           
+           var company = _context.Companies.Find(companyId);
             var jobPostings = await _context.JobPosting
                 .Where(jp => jp.CompaniesId == companyId)
                 .ToListAsync();
+            ViewBag.CompanyName = company.Name;
 
             if (jobPostings == null || !jobPostings.Any())
             {

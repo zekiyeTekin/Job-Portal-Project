@@ -1,10 +1,10 @@
 @model IEnumerable<EFCoreFinalApp.Data.JobPosting>
 
 @{
-    ViewData["Title"] = "Job Postings for Company";
+   ViewData["Title"] = "Job Postings for " + ViewBag.CompanyName;
 }
 
-<h1></h1>
+<h2>@ViewBag.CompanyName Şirketinin Paylaştığı İş İlanları</h2>
 
 <div class="table-container">
 <table class="table  table-hover">
@@ -23,6 +23,7 @@
                 <td>@job.Title</td>
                 <td>@job.Description</td>
                 <td>@job.PostedDate.ToShortDateString()</td>
+              
                 
             </tr>
         }
