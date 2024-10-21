@@ -26,7 +26,7 @@
                 <td>@job.PostedDate.ToShortDateString()</td>
                 <td>
                     <a>
-                        <a asp-controller="JobPosting" asp-action="JobApplications" asp-route-jobPostingId="@job.Id" class="btn btn-success">Başvuranları Görüntüle</a>
+                        <a asp-controller="JobPosting" asp-action="JobApplications" asp-route-jobPostingId="@job.Id" class="btn btn-warning">Başvuranları Görüntüle</a>
 
                     </a>
                 </td>
@@ -85,12 +85,12 @@
     }
 
     .btn-success {
-    background-color: #8a9f53;
-    border-color: rgb(104, 140, 5); 
+    background-color: #f5bd13;
+    border-color: #FFCA2C; 
     float: right;
    }
    .btn-success:hover {
-    background-color: #99bd57;
-    border-color: rgb(104, 140, 5); 
+    background-color: #f3d067;
+    border-color: #FFCA2C; 
    }
 </style>

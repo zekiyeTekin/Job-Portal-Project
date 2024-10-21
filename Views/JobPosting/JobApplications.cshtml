@@ -89,7 +89,7 @@ else
     <p>Henüz başvuru yapan adayınız yok.</p>
 }
 
-<a href="@Url.Action("listPostCompany", "Companies", new { companyId = Model.CompaniesId })" class="btn btn-success">Açık Pozisyonlar Listesine Geri Dön</a>
+<a href="@Url.Action("listPostCompany", "Companies", new { companyId = Model.CompaniesId })" class="btn btn-warning">Açık Pozisyonlar Listesine Geri Dön</a>
 
 
 
@@ -138,6 +138,16 @@ else
     .btn-success:hover {
         background-color: #99bd57;
         border-color: rgb(104, 140, 5); 
+    }
+    .btn-warning {
+        background-color: #f5bd13;
+        border-color: #FFCA2C; 
+        float: right;
+    }
+
+    .btn-warning:hover {
+        background-color: #f3d067;
+    border-color: #FFCA2C;  
     }
 
    

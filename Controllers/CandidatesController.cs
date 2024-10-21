@@ -85,7 +85,7 @@ namespace EFCoreFinalApp.Controllers{
                     {
                         await ResumePath.CopyToAsync(stream);
                     }
-                    model.ResumePath = "/uploads/resumes/" + resumeFileName; 
+                    model.ResumePath = "uploads/resumes/" + resumeFileName; 
                 }
 
                 
