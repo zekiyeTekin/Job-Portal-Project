@@ -4,7 +4,18 @@
     ViewData["Title"] = "Job Postings";
 }
 
+
 <h2>İş İlanları</h2>
+<div class="search-container">
+    
+    <form asp-controller="JobPosting" asp-action="Index" method="get" class="d-flex">
+        <input type="text" name="searchString" class="form-control" value="@ViewBag.CurrentSearch" placeholder="Başlığa göre arayınız" />
+        <button type="submit" class="btn btn-success">Ara</button>
+    </form>
+</div>
+
+
+
 
 <div class="table-container">
     <table class="table table-hover">
@@ -188,10 +199,6 @@
         margin-top: 20px; 
     }
 
-
-
-    
-    
     .table-container {
         margin-bottom: 30px; 
     }
@@ -232,6 +239,27 @@
         padding: 15px 20px;
         text-align: left;
         vertical-align: middle; 
+    }
+
+
+    .search-container {
+    display: flex; 
+    justify-content: flex-end; 
+    margin-bottom: 20px; 
+    }
+
+    .search-container .form-control {
+        width: auto; 
+        margin-right: 10px; 
+    }
+
+    .btn-success{
+        background-color: rgba(153, 156, 13);
+        color: white; 
+    }
+     .btn-success:hover{
+        background-color: rgb(197, 200, 36);
+        color: white; 
     }
         
 

@@ -59,16 +59,28 @@
 | Description    | Screenshot                    |
 |----------------|-------------------------------|
 | **Giriş ve Kayıt Sayfası**  | ![Login and Register Page](/wwwroot/img/readme_login.jpg)  |
-| **Tüm Şirketleri Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_comaniesList.png)  |
-| **Şirketleri Detaylarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyDeatil.png)  |
+| **Tüm Şirketleri Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyList.png)  |
+| **Şirketleri Detaylarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyDetail.png)  |
 | **Şirketleri Alanına Göre Filtreleme**  | ![CreatePost](/wwwroot/img/readme_companiesFilter.png)  |
-| **Tüm Adayları Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_candidateList.png)  |
+| **Tüm Adayları Görüntüleme**  | ![CreatePost](/wwwroot/img/reame_candidateList.png)  |
 | **Adayların Güncelleme Ekranı ve Başvuruları**  | ![CreatePost](/wwwroot/img/readme_candidateDetail.png)  |
 | **Adayların Başvuru Detayı**  | ![CreatePost](/wwwroot/img/readme_jobPostingDetail.png)  |
+| **Şirket Oluşturması**  | ![CreatePost](/wwwroot/img/readme_companyCreate.png)  |
+| **Şirket Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createCandidate.png)  |
 | **Şirketlerin İş Postlarını Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createdJobPosting.png)  |
 | **Şirketleri İş Postlarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyViewPost.png)  |
+| **Şirketleri İş Postlarını Başlığa göre Arama**  | ![CreatePost](/wwwroot/img/readme_companySearchByTitle.png)  |
 | **Şirketleri İş Postlarının Detaylarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyPostDetail.png)  |
-| **Şirketleri İş Postlarına Başvuruda Bulunma**  | ![CreatePost](/wwwroot/img/readme_jobApply.png)  |
+| **İş Postuna Başvuru yapmak**  | ![CreatePost](/wwwroot/img/readme_applyPage.png)  |
+| **İş Postuna Başvuru yapılması**  | ![CreatePost](/wwwroot/img/readme_appiedPosts.png)  |
+| **Bir Şirketin Paylaştığı İş İlanları**  | ![CreatePost](/wwwroot/img/readme_listPostByCompany.png)  |
+| **Bir Şirketin İlanına Başvuran aday ile Mülakat Aşamasına Geçmesi**  | ![CreatePost](/wwwroot/img/readme_evaluateApply.png)  |
+| **Bir Şirketin İlanına Başvuran adayın Başvurusunu Reddetmesi**  | ![CreatePost](/wwwroot/img/readme_rejectApply.png)  |
+| **Bir Şirketin İlanına Başvuran adayın Başvurusunu Kabul Edilmesi**  | ![CreatePost](/wwwroot/img/readme_positiveApply.png)  |
+
+
+
+
 
 ## Kullanım 
--Video hazırlanıp konulacak ve Yüklenen görseller düzenlenecek (TODO)
+-Video hazırlanıp konulacak(TODO)

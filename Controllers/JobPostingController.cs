@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using EFCoreFinalApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace EFCoreFinalApp.Controllers
 {
@@ -15,10 +16,17 @@ namespace EFCoreFinalApp.Controllers
         }
 
 
-         public async Task<IActionResult> Index()
+         public async Task<IActionResult> Index(string searchString)
         {
-             var jobPostings = await _context.JobPosting.Include(j=>j.Companies).ToListAsync();
-             return View(jobPostings);
+            var jobPostings = from j in _context.JobPosting.Include(j => j.Companies)
+                      select j;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                jobPostings = jobPostings.Where(s => s.Title.ToLower().Contains(searchString.ToLower()));
+            }
+            ViewBag.CurrentSearch = searchString;
+             return View(await jobPostings.ToListAsync());
             
         }
 
