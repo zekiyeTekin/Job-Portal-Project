@@ -19,24 +19,64 @@
                 <th>Telefon</th>
                 <th>Başvuru Tarihi</th>
                 <th>Durum</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var application in Model.JobApply)
             {
+                
+                    
+                    var statusClass = "";
+                    if (application.Status == "Mülakat Aşaması")
+                    {
+                        statusClass = "blue-text"; 
+                    }
+                    else if (application.Status == "Olumlu")
+                    {
+                        statusClass = "green-text"; 
+                    }
+                    else if (application.Status == "Reddedildi")
+                    {
+                        statusClass = "red-text"; 
+                    }
                 <tr>
                     <td>@application.Candidates?.Name </td>
                     <td>@application.Candidates?.Email </td>
                     <td>@application.Candidates?.Phone </td>
                     <td>@application.ApplyDate.ToShortDateString()</td>
-                    <td>@application.Status</td>
+                    <td class="@statusClass" >@application.Status</td>
+                    
                     <td>
-                <form action="@Url.Action("UpdateStatus", "JobPosting")" method="post">
-                    <input type="hidden" name="applicationId" value="@application.Id" />
-                    <input type="hidden" name="newStatus" value="Mülakat Aşaması" />
-                    <button type="submit" class="btn btn-primary">Mülakat Aşamasına Geç</button>
-                </form>
-                </td>
+                         @if (application.Status != "Mülakat Aşaması" && application.Status != "Olumlu" && application.Status != "Reddedildi")
+                        {
+                            <form action="@Url.Action("UpdateStatus", "JobPosting")" method="post">
+                                <input type="hidden" name="applicationId" value="@application.Id" />
+                                <input type="hidden" name="newStatus" value="Mülakat Aşaması" />
+                                <button type="submit" class="btn btn-success">Mülakat Aşamasına Geç</button>
+                            </form>
+                        }
+                    </td>
+
+                @if (application.Status == "Mülakat Aşaması")
+                        {
+                            <td>
+                            <form action="@Url.Action("UpdateStatus", "JobPosting")" method="post" style="display:inline;">
+                                <input type="hidden" name="applicationId" value="@application.Id" />
+                                <input type="hidden" name="newStatus" value="Olumlu" />
+                                <button type="submit" class="btn btn-success">Başvuruyu Onayla</button>
+                            </form>
+                            <form action="@Url.Action("UpdateStatus", "JobPosting")" method="post" style="display:inline;">
+                                <input type="hidden" name="applicationId" value="@application.Id" />
+                                <input type="hidden" name="newStatus" value="Reddedildi" />
+                                <button type="submit" class="btn btn-danger">Başvuruyu Reddet</button>
+                            </form>
+                        </td>
+                        }
+
+
+
                 </tr>
             }
         </tbody>
@@ -98,5 +138,21 @@ else
     .btn-success:hover {
         background-color: #99bd57;
         border-color: rgb(104, 140, 5); 
+    }
+
+   
+    .blue-text {
+        color: rgb(34, 0, 255);
+        font-weight: bold;
+        
+    }
+
+    .green-text {
+        color: rgb(29, 173, 3);
+        font-weight: bold;
+    }
+    .red-text {
+        color: rgb(245, 0, 0);
+        font-weight: bold;
     }
 </style>

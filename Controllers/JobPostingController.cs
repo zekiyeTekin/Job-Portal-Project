@@ -88,7 +88,6 @@ namespace EFCoreFinalApp.Controllers
         }
 
 
-
           public IActionResult JobApplications(int jobPostingId)
         {
             var jobPosting = _context.JobPosting
@@ -102,6 +101,26 @@ namespace EFCoreFinalApp.Controllers
             }
 
             return View(jobPosting);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateStatus(int applicationId, string newStatus)
+        {
+            
+            var application = _context.JobApply
+            .FirstOrDefault(a => a.Id == applicationId);
+            
+            if (application == null)
+            {
+                return NotFound(); 
+            }
+
+            
+            application.Status = newStatus;
+            _context.SaveChanges(); 
+
+            
+            return RedirectToAction("JobApplications", "JobPosting", new { jobPostingId = application.JobPostingId });
         }
 
 
