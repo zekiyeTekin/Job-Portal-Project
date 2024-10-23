@@ -1,10 +1,12 @@
 using EFCoreFinalApp.Data;
 using EFCoreFinalApp.Data.EFCoreFinalApp;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DataContext>(options =>{
@@ -12,11 +14,18 @@ builder.Services.AddDbContext<DataContext>(options =>{
     var connectionString = config.GetConnectionString("database");
     options.UseSqlite(connectionString);
 });
+ 
+builder.Services.AddIdentity<Candidates, IdentityRole>().AddEntityFrameworkStores<DataContext>()
+        .AddDefaultTokenProviders();
 
+ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
+     options.LoginPath = "/Candidates/Login";
+     options.LogoutPath = "/Candidates/Logout";
+ });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -29,7 +38,7 @@ app.UseStaticFiles();
 SeedData.TestVerileriniDoldur(app);
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

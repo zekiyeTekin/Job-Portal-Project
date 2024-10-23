@@ -15,9 +15,9 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                 
              if(!context.Candidates.Any()){
                 context.Candidates.AddRange(
-                    new Candidates {Name = "Zekiye", Surname = "Tekin", Email="zt@gmail.com", Phone="01111111111", ProfileImg="uploads/images/profil.png", ResumePath="uploads/resumes/ZekiyeTekin_CV.pdf", IsOpenToWork=true},
-                    new Candidates {Name = "Münevver", Surname = "Tekin", Email="mt@gmail.com", Phone="02222222222", ProfileImg="uploads/images/profil_1.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true},
-                    new Candidates {Name = "Hasan", Surname = "Karademir", Email="hk@gmail.com", Phone="03333333333", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true}
+                    new Candidates {Name = "Zekiye", Surname = "Tekin", Email="zt@gmail.com", Phone="01111111111", ProfileImg="uploads/images/profil.png", ResumePath="uploads/resumes/ZekiyeTekin_CV.pdf", IsOpenToWork=true, Password="zekiye11"},
+                    new Candidates {Name = "Münevver", Surname = "Tekin", Email="mt@gmail.com", Phone="02222222222", ProfileImg="uploads/images/profil_1.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11"},
+                    new Candidates {Name = "Hasan", Surname = "Karademir", Email="hk@gmail.com", Phone="03333333333", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11"}
                 );
                 context.SaveChanges();
             }

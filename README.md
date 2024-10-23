@@ -66,7 +66,7 @@
 | **Adayların Güncelleme Ekranı ve Başvuruları**  | ![CreatePost](/wwwroot/img/readme_candidateDetail.png)  |
 | **Adayların Başvuru Detayı**  | ![CreatePost](/wwwroot/img/readme_jobPostingDetail.png)  |
 | **Şirket Oluşturması**  | ![CreatePost](/wwwroot/img/readme_companyCreate.png)  |
-| **Şirket Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createCandidate.png)  |
+| **Aday Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createCandidate.png)  |
 | **Şirketlerin İş Postlarını Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createdJobPosting.png)  |
 | **Şirketleri İş Postlarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyViewPost.png)  |
 | **Şirketleri İş Postlarını Başlığa göre Arama**  | ![CreatePost](/wwwroot/img/readme_companySearchByTitle.png)  |

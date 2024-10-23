@@ -2,6 +2,12 @@ using EFCoreFinalApp.Data;
 using Microsoft.AspNetCore.Mvc;
 using EFCoreFinalApp.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace EFCoreFinalApp.Controllers{
 
@@ -35,6 +41,7 @@ namespace EFCoreFinalApp.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "candidate, company")]
         public async Task<IActionResult> Edit(int id, Candidates model, IFormFile? ProfileImg)
         {
             if (id != model.Id)
@@ -65,13 +72,14 @@ namespace EFCoreFinalApp.Controllers{
         }
 
         [HttpGet]
+        
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Create(Candidates model, IFormFile ProfileImg, IFormFile ResumePath)
         {
             if (ModelState.IsValid)
@@ -100,7 +108,6 @@ namespace EFCoreFinalApp.Controllers{
                     model.ProfileImg = "/uploads/images/" + imageFileName; 
                 }
 
-                
                 _context.Candidates.Add(model);
                 await _context.SaveChangesAsync();
 
@@ -110,6 +117,102 @@ namespace EFCoreFinalApp.Controllers{
         }
 
 
-       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public IActionResult Login(){
+            if(User.Identity!.IsAuthenticated){
+                return RedirectToAction("Index","Home");
+            }
+            return View();
+        }
+
+        public IActionResult Register(){
+            return View();
+        }
+
+        [HttpPost("Candidates/Register")]
+        public async Task<IActionResult> Register(Candidates model){
+
+            if(ModelState.IsValid){
+                var user = await _context.Candidates.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
+                if(user == null){
+                    _context.Candidates.Add(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Login");
+                }else{
+                    ModelState.AddModelError("", "UserName ya da Email adresi kullanımda");
+                }
+            }
+            return View(model);
+        }
+
+
+            public async Task<IActionResult> Logout(){
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Login(LoginViewModel model){
+
+            if(ModelState.IsValid){
+                var isUser =await _context.Candidates.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
+
+                if(isUser != null){
+                    var userClaims = new List<Claim>();
+
+                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
+                    userClaims.Add(new Claim(ClaimTypes.Name, isUser.Username ?? ""));
+                  
+                    // if(isUser.Email == "zt@gmail.com"){
+                    //     userClaims.Add(new Claim(ClaimTypes.Role, "candidate"));
+                    // }
+
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+
+                    var authProporties = new AuthenticationProperties{IsPersistent =true};
+
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),authProporties);
+                        return RedirectToAction("Index","Home");
+                }else{
+                ModelState.AddModelError("","Kullanıcı adı veya parola hatalıdır.");
+             }
+
+            }
+            return View(model);
+        }
+
+
+
+
     } 
 }
