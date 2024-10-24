@@ -1,4 +1,8 @@
+using System.Security.Claims;
 using EFCoreFinalApp.Data;
+using EFCoreFinalApp.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -96,6 +100,96 @@ namespace EFCoreFinalApp.Controllers
 
             return View(jobPostings); 
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public IActionResult Login(){
+            if(User.Identity!.IsAuthenticated){
+                return RedirectToAction("JobApply","Index");
+            }
+            return View();
+        }
+
+        [HttpGet("Companies/Register")]
+        public IActionResult Register(){
+            return View();
+        }
+
+        [HttpPost("Companies/Register")]
+        public async Task<IActionResult> Register(Companies model){
+
+            if(ModelState.IsValid){
+                var user = await _context.Companies.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
+                if(user == null){
+                    _context.Companies.Add(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Login");
+                }else{
+                    ModelState.AddModelError("", "UserName ya da Email adresi kullanımda");
+                }
+            }
+            return View(model);
+        }
+
+
+            public async Task<IActionResult> Logout(){
+
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Login(LoginViewModel model){
+
+            if(ModelState.IsValid){
+                var isUser =await _context.Companies.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
+
+                if(isUser != null){
+                    var userClaims = new List<Claim>();
+
+                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
+                    userClaims.Add(new Claim(ClaimTypes.Name, isUser.Name ?? ""));
+                  
+                    // if(isUser.Email == "zt@gmail.com"){
+                    //     userClaims.Add(new Claim(ClaimTypes.Role, "candidate"));
+                    // }
+
+                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+
+                    var authProporties = new AuthenticationProperties{IsPersistent =true};
+
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity),authProporties);
+                        return RedirectToAction("Index","JobApply");
+                }else{
+                ModelState.AddModelError("","Kullanıcı adı veya parola hatalıdır.");
+             }
+
+            }
+            return View(model);
+        }
+
 
 
 

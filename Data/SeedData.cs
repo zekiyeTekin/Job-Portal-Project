@@ -23,11 +23,11 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
             }
             if(!context.Companies.Any()){
                 context.Companies.AddRange(
-                    new Companies{Name = "MT Design Studio", Description="Kişiye özel tasarımların yanı sıra özgün tasarımlarımız ile yenilikçilik anlayışını benimsiyoruz. Ürünlerimizle ilgileniyorsanız için bizimle iletişime geçebilirsiniz.", Email="mt.design@gmail.com", Phone="01111112222", Industry="Tasarım",Logo="uploads/images/logo_mt.jpg"
+                    new Companies{Name = "MT Design Studio", Description="Kişiye özel tasarımların yanı sıra özgün tasarımlarımız ile yenilikçilik anlayışını benimsiyoruz. Ürünlerimizle ilgileniyorsanız için bizimle iletişime geçebilirsiniz.", Email="mt.design@gmail.com", Phone="01111112222", Industry="Tasarım",Logo="uploads/images/logo_mt.jpg", Password="zekiye11"
                     },
-                    new Companies{Name = "ZT Yazılım", Description="Ürün ve hizmet kalitemizi sürekli geliştirerek müşteri talep ve beklentilerini en üst seviyede karşılıyoruz, Güçlü bir iletişim ile müşterilerimizle aramızda duygusal bir bağ yaratmak ve müşteri sadakatini sağlamak, rekabet gücümüzü ve kârlılığımızı arttırmak adına kaliteli hizmet sunmayı amaçlıyoruz.", Email="zt.yazilim@gmail.com", Phone="01111113333", Industry="Yazılım", Logo="uploads/images/logo_zt.jpg" 
+                    new Companies{Name = "ZT Yazılım", Description="Ürün ve hizmet kalitemizi sürekli geliştirerek müşteri talep ve beklentilerini en üst seviyede karşılıyoruz, Güçlü bir iletişim ile müşterilerimizle aramızda duygusal bir bağ yaratmak ve müşteri sadakatini sağlamak, rekabet gücümüzü ve kârlılığımızı arttırmak adına kaliteli hizmet sunmayı amaçlıyoruz.", Email="zt.yazilim@gmail.com", Phone="01111113333", Industry="Yazılım", Logo="uploads/images/logo_zt.jpg", Password="zekiye11"
                     },
-                    new Companies{Name = "HK Yapay Zeka", Description="Ülkemize ve tüm insanlığa fayda sağlayacak yapay zekâ sistemleri üretebilecek çalışanları bir araya toplayarak hem  bilimsel çalışmaları arttırmak hem de sanayinin ihtiyaç duyduğu sistemleri yapay zekâ çözümleri ile geliştirebilen ve bu alanda öncü bilimsel çalışmalar üreten bir merkez olmak amaçlıyoruz", Email="hk.ai@gmail.com", Phone="01111114444", Industry="Yapay Zeka", Logo="uploads/images/logo_hk.jpg"
+                    new Companies{Name = "HK Yapay Zeka", Description="Ülkemize ve tüm insanlığa fayda sağlayacak yapay zekâ sistemleri üretebilecek çalışanları bir araya toplayarak hem  bilimsel çalışmaları arttırmak hem de sanayinin ihtiyaç duyduğu sistemleri yapay zekâ çözümleri ile geliştirebilen ve bu alanda öncü bilimsel çalışmalar üreten bir merkez olmak amaçlıyoruz", Email="hk.ai@gmail.com", Phone="01111114444", Industry="Yapay Zeka", Logo="uploads/images/logo_hk.jpg", Password="zekiye11"
                     }
                 );
                 context.SaveChanges();

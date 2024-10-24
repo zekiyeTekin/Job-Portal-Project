@@ -20,7 +20,9 @@ builder.Services.AddIdentity<Candidates, IdentityRole>().AddEntityFrameworkStore
 
  builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
      options.LoginPath = "/Candidates/Login";
+     options.LoginPath = "/Company/Login";
      options.LogoutPath = "/Candidates/Logout";
+     options.LogoutPath = "/Company/Logout";
  });
 
 var app = builder.Build();
