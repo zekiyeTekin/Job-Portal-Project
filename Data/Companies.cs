@@ -14,6 +14,8 @@ namespace EFCoreFinalApp.Data{
         public string? Password {get; set;}
         public string? Phone {get; set;}
         public string? Industry {get; set;}
+
+        public Role Role { get; set; } = Role.Company;
     
         [JsonIgnore]
         public ICollection<JobPosting> JobPostings { get; set; } = new List<JobPosting>();

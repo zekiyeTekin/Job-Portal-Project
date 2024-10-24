@@ -3,6 +3,7 @@ using EFCoreFinalApp.Data;
 using EFCoreFinalApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,6 +60,7 @@ namespace EFCoreFinalApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(Role.Company))]
         public async Task<IActionResult> Create(Companies model, IFormFile logo)
         {
             if (ModelState.IsValid)
@@ -133,11 +135,13 @@ namespace EFCoreFinalApp.Controllers
         }
 
         [HttpPost("Companies/Register")]
-        public async Task<IActionResult> Register(Companies model){
+        public async Task<IActionResult> Register(Companies model, Role role){
 
             if(ModelState.IsValid){
                 var user = await _context.Companies.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
                 if(user == null){
+
+                     model.Role = role;
                     _context.Companies.Add(model);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Login");
@@ -163,6 +167,8 @@ namespace EFCoreFinalApp.Controllers
 
                 if(isUser != null){
                     var userClaims = new List<Claim>();
+
+                    userClaims.Add(new Claim(ClaimTypes.Role, isUser.Role.ToString()));
 
                     userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
                     userClaims.Add(new Claim(ClaimTypes.Name, isUser.Name ?? ""));

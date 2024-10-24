@@ -22,6 +22,8 @@ namespace EFCoreFinalApp.Data{
             }
         }
         public bool IsOpenToWork { get; set; }
+
+        public Role Role { get; set; } = Role.Candidate;
         public ICollection<JobApply> JobApply { get; set; } = new List<JobApply>();
 
     }

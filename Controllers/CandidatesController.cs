@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace EFCoreFinalApp.Controllers{
@@ -39,7 +40,7 @@ namespace EFCoreFinalApp.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "candidate, company")]
+        [Authorize(Roles = nameof(Role.Candidate))]
         public async Task<IActionResult> Edit(int id, Candidates model, IFormFile? ProfileImg)
         {
             if (id != model.Id)
@@ -152,11 +153,13 @@ namespace EFCoreFinalApp.Controllers{
         }
 
         [HttpPost("Candidates/Register")]
-        public async Task<IActionResult> Register(Candidates model){
+        public async Task<IActionResult> Register(Candidates model,Role role){
 
             if(ModelState.IsValid){
                 var user = await _context.Candidates.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
                 if(user == null){
+                    model.Role = role;
+
                     _context.Candidates.Add(model);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Login");
@@ -182,6 +185,8 @@ namespace EFCoreFinalApp.Controllers{
 
                 if(isUser != null){
                     var userClaims = new List<Claim>();
+
+                    userClaims.Add(new Claim(ClaimTypes.Role, isUser.Role.ToString()));
 
                     userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
                     userClaims.Add(new Claim(ClaimTypes.Name, isUser.Username ?? ""));
