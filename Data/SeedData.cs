@@ -15,19 +15,24 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                 
              if(!context.Candidates.Any()){
                 context.Candidates.AddRange(
-                    new Candidates {Name = "Zekiye", Surname = "Tekin", Email="zt@gmail.com", Phone="01111111111", ProfileImg="uploads/images/profil.png", ResumePath="uploads/resumes/ZekiyeTekin_CV.pdf", IsOpenToWork=true, Password="zekiye11"},
-                    new Candidates {Name = "Münevver", Surname = "Tekin", Email="mt@gmail.com", Phone="02222222222", ProfileImg="uploads/images/profil_1.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11"},
-                    new Candidates {Name = "Hasan", Surname = "Karademir", Email="hk@gmail.com", Phone="03333333333", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11"}
+                    new Candidates {Name = "Zekiye", Surname = "Tekin", Email="zt@gmail.com", Phone="01111111111", ProfileImg="uploads/images/profil.png", ResumePath="uploads/resumes/ZekiyeTekin_CV.pdf", IsOpenToWork=true, Password="zekiye11",
+                    Role=Role.Candidate},
+                    new Candidates {Name = "Münevver", Surname = "Tekin", Email="mt@gmail.com", Phone="02222222222", ProfileImg="uploads/images/profil_1.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11",
+                    Role=Role.Candidate},
+                    new Candidates {Name = "Hasan", Surname = "Karademir", Email="hk@gmail.com", Phone="03333333333", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11",Role=Role.Candidate}
                 );
                 context.SaveChanges();
             }
             if(!context.Companies.Any()){
                 context.Companies.AddRange(
-                    new Companies{Name = "MT Design Studio", Description="Kişiye özel tasarımların yanı sıra özgün tasarımlarımız ile yenilikçilik anlayışını benimsiyoruz. Ürünlerimizle ilgileniyorsanız için bizimle iletişime geçebilirsiniz.", Email="mt.design@gmail.com", Phone="01111112222", Industry="Tasarım",Logo="uploads/images/logo_mt.jpg", Password="zekiye11"
+                    new Companies{Name = "MT Design Studio", Description="Kişiye özel tasarımların yanı sıra özgün tasarımlarımız ile yenilikçilik anlayışını benimsiyoruz. Ürünlerimizle ilgileniyorsanız için bizimle iletişime geçebilirsiniz.", Email="mt.design@gmail.com", Phone="01111112222", Industry="Tasarım",Logo="uploads/images/logo_mt.jpg", Password="zekiye11",
+                    Role=Role.Company
                     },
-                    new Companies{Name = "ZT Yazılım", Description="Ürün ve hizmet kalitemizi sürekli geliştirerek müşteri talep ve beklentilerini en üst seviyede karşılıyoruz, Güçlü bir iletişim ile müşterilerimizle aramızda duygusal bir bağ yaratmak ve müşteri sadakatini sağlamak, rekabet gücümüzü ve kârlılığımızı arttırmak adına kaliteli hizmet sunmayı amaçlıyoruz.", Email="zt.yazilim@gmail.com", Phone="01111113333", Industry="Yazılım", Logo="uploads/images/logo_zt.jpg", Password="zekiye11"
+                    new Companies{Name = "ZT Yazılım", Description="Ürün ve hizmet kalitemizi sürekli geliştirerek müşteri talep ve beklentilerini en üst seviyede karşılıyoruz, Güçlü bir iletişim ile müşterilerimizle aramızda duygusal bir bağ yaratmak ve müşteri sadakatini sağlamak, rekabet gücümüzü ve kârlılığımızı arttırmak adına kaliteli hizmet sunmayı amaçlıyoruz.", Email="zt.yazilim@gmail.com", Phone="01111113333", Industry="Yazılım", Logo="uploads/images/logo_zt.jpg", Password="zekiye11",
+                    Role=Role.Company
                     },
-                    new Companies{Name = "HK Yapay Zeka", Description="Ülkemize ve tüm insanlığa fayda sağlayacak yapay zekâ sistemleri üretebilecek çalışanları bir araya toplayarak hem  bilimsel çalışmaları arttırmak hem de sanayinin ihtiyaç duyduğu sistemleri yapay zekâ çözümleri ile geliştirebilen ve bu alanda öncü bilimsel çalışmalar üreten bir merkez olmak amaçlıyoruz", Email="hk.ai@gmail.com", Phone="01111114444", Industry="Yapay Zeka", Logo="uploads/images/logo_hk.jpg", Password="zekiye11"
+                    new Companies{Name = "HK Yapay Zeka", Description="Ülkemize ve tüm insanlığa fayda sağlayacak yapay zekâ sistemleri üretebilecek çalışanları bir araya toplayarak hem  bilimsel çalışmaları arttırmak hem de sanayinin ihtiyaç duyduğu sistemleri yapay zekâ çözümleri ile geliştirebilen ve bu alanda öncü bilimsel çalışmalar üreten bir merkez olmak amaçlıyoruz", Email="hk.ai@gmail.com", Phone="01111114444", Industry="Yapay Zeka", Logo="uploads/images/logo_hk.jpg", Password="zekiye11",
+                    Role=Role.Company
                     }
                 );
                 context.SaveChanges();

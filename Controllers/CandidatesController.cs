@@ -177,43 +177,104 @@ namespace EFCoreFinalApp.Controllers{
             return RedirectToAction("Login");
         }
 
-        [HttpPost]
-        public async Task<IActionResult>Login(LoginViewModel model){
+        // [HttpPost]
+        // public async Task<IActionResult>Login(LoginViewModel model){
 
-            if(ModelState.IsValid){
-                var isUser =await _context.Candidates.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
+        //     if(ModelState.IsValid){
+        //         var isUser =await _context.Candidates.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
 
-                if(isUser != null){
-                    var userClaims = new List<Claim>();
+        //         if(isUser != null){
+        //             var userClaims = new List<Claim>();
 
-                    userClaims.Add(new Claim(ClaimTypes.Role, isUser.Role.ToString()));
+        //             userClaims.Add(new Claim(ClaimTypes.Role, isUser.Role.ToString()));
 
-                    userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
-                    userClaims.Add(new Claim(ClaimTypes.Name, isUser.Username ?? ""));
+
+        //             userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
+        //             userClaims.Add(new Claim(ClaimTypes.Name, isUser.Username ?? ""));
                   
-                    // if(isUser.Email == "zt@gmail.com"){
-                    //     userClaims.Add(new Claim(ClaimTypes.Role, "candidate"));
-                    // }
+        //             // if(isUser.Email == "zt@gmail.com"){
+        //             //     userClaims.Add(new Claim(ClaimTypes.Role, "candidate"));
+        //             // }
 
-                    var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //             var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
 
 
-                    var authProporties = new AuthenticationProperties{IsPersistent =true};
+        //             var authProporties = new AuthenticationProperties{IsPersistent =true};
 
-                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),authProporties);
-                        return RedirectToAction("Index","Home");
-                }else{
-                ModelState.AddModelError("","Kullanıcı adı veya parola hatalıdır.");
-             }
+        //             await HttpContext.SignInAsync(
+        //                 CookieAuthenticationDefaults.AuthenticationScheme,
+        //                 new ClaimsPrincipal(claimsIdentity),authProporties);
 
+        //              var claims = User.Claims.ToList();
+        //     foreach (var claim in claims)
+        //     {
+        //         Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+        //     }
+
+        //             return RedirectToAction("Index","Home");
+        //         }else{
+        //         ModelState.AddModelError("","Kullanıcı adı veya parola hatalıdır.");
+        //      }
+
+        //     }
+        //     return View(model);
+        // }
+
+
+[HttpPost]
+public async Task<IActionResult> Login(LoginViewModel model)
+{
+    if (ModelState.IsValid)
+    {
+        var isUser = await _context.Candidates
+    .FirstOrDefaultAsync(x => x.Email == model.Email && x.Password == model.Password);
+
+
+        if (isUser != null)
+        {
+            // Şifre kontrolü yapın
+            if (isUser.Password == model.Password) // Parola kontrolü
+            {
+
+                Console.WriteLine($"E-posta: {model.Email}, Parola: {model.Password}");
+
+                // Yetkilendirme işlemleri
+                var userClaims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Role, isUser.Role.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
+                    new Claim(ClaimTypes.Name, isUser.Username ?? "")
+                };
+
+                var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties { IsPersistent = true };
+
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                return RedirectToAction("Index", "Home");
             }
-            return View(model);
+            else
+            {
+                ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır.");
+                Console.WriteLine("Giriş başarısız: Hatalı parola."); // Hata mesajı
+            }
         }
+        else
+        {
+            ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır.");
+            Console.WriteLine("Giriş başarısız: Kullanıcı bulunamadı."); // Hata mesajı
+        }
+    }
+    else
+    {
+        Console.WriteLine("Model geçerli değil: " + string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))); // Model hata mesajı
+    }
 
+    return View(model);
+}
 
 
 

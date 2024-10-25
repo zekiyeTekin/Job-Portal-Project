@@ -10,6 +10,7 @@ namespace EFCoreFinalApp.Data{
         public DbSet<Companies> Companies => Set<Companies>();
         public DbSet<JobApply> JobApply => Set<JobApply>();
         public DbSet<JobPosting> JobPosting => Set<JobPosting>();
+       
 
         
 

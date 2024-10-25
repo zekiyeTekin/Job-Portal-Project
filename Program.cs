@@ -20,10 +20,16 @@ builder.Services.AddIdentity<Candidates, IdentityRole>().AddEntityFrameworkStore
 
  builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>{
      options.LoginPath = "/Candidates/Login";
-     options.LoginPath = "/Companies/Login";
      options.LogoutPath = "/Candidates/Logout";
-     options.LogoutPath = "/Companies/Logout";
+     options.AccessDeniedPath = "/Account/AccessDenied";
+     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
  });
+
+builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("CompanyPolicy", policy => policy.RequireRole("company"));
+        options.AddPolicy("CandidatePolicy", policy => policy.RequireRole("candidate"));
+    });
 
 var app = builder.Build();
 
