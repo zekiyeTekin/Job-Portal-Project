@@ -4,12 +4,11 @@
 
  <div class="text-center">
 
-    @if (User?.Identity != null && User.Identity.IsAuthenticated)
-    {
+    
         <a href="@Url.Action("Create", "Candidates")" class="btn btn-primary">Aday Oluştur</a>
         <a href="@Url.Action("Create", "Companies")" class="btn btn-primary">Şirket Oluştur</a>
         <a href="@Url.Action("Create", "JobPosting")" class="btn btn-primary">İş Postu Oluştur</a>
-    }
+    
 
 </div> 
 

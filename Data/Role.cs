@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 namespace EFCoreFinalApp.Data{
     public enum Role{
 
-        Candidate = 1,
+        Candidate,
 
-        Company = 2,
+        Company,
 
     }
 }

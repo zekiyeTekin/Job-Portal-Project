@@ -16,6 +16,8 @@ namespace EFCoreFinalApp.Controllers{
         public CandidatesController(DataContext context){
             _context = context;
         }
+
+        [Authorize(Roles = "Candidate")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Candidates.ToListAsync());
@@ -40,7 +42,7 @@ namespace EFCoreFinalApp.Controllers{
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = nameof(Role.Candidate))]
+        [Authorize(Roles = "Candidate")]
         public async Task<IActionResult> Edit(int id, Candidates model, IFormFile? ProfileImg)
         {
             if (id != model.Id)
@@ -140,7 +142,7 @@ namespace EFCoreFinalApp.Controllers{
 
 
 
-
+        [HttpGet("Candidates/Login")]
         public IActionResult Login(){
             if(User.Identity!.IsAuthenticated){
                 return RedirectToAction("Index","Home");
@@ -158,7 +160,7 @@ namespace EFCoreFinalApp.Controllers{
             if(ModelState.IsValid){
                 var user = await _context.Candidates.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
                 if(user == null){
-                    model.Role = role;
+                    model.Role = Role.Candidate;
 
                     _context.Candidates.Add(model);
                     await _context.SaveChangesAsync();
@@ -234,13 +236,13 @@ public async Task<IActionResult> Login(LoginViewModel model)
 
         if (isUser != null)
         {
-            // Şifre kontrolü yapın
-            if (isUser.Password == model.Password) // Parola kontrolü
+            
+            if (isUser.Password == model.Password) 
             {
 
                 Console.WriteLine($"E-posta: {model.Email}, Parola: {model.Password}");
 
-                // Yetkilendirme işlemleri
+                
                 var userClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Role, isUser.Role.ToString()),
@@ -254,23 +256,25 @@ public async Task<IActionResult> Login(LoginViewModel model)
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                return RedirectToAction("Index", "Home");
+               
+                        return RedirectToAction("Index", "Home"); 
+                
             }
             else
             {
                 ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır.");
-                Console.WriteLine("Giriş başarısız: Hatalı parola."); // Hata mesajı
+                Console.WriteLine("Giriş başarısız: Hatalı parola."); 
             }
         }
         else
         {
             ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır.");
-            Console.WriteLine("Giriş başarısız: Kullanıcı bulunamadı."); // Hata mesajı
+            Console.WriteLine("Giriş başarısız: Kullanıcı bulunamadı."); 
         }
     }
     else
     {
-        Console.WriteLine("Model geçerli değil: " + string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))); // Model hata mesajı
+        Console.WriteLine("Model geçerli değil: " + string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))); 
     }
 
     return View(model);

@@ -32,8 +32,23 @@
                         <p class="text-center"><strong>✨✨İş Arama Platformuna Hoş Geldiniz ✨✨</strong></p>
                     </div> *@
                         <ul class="navbar-nav flex-grow-1">
+
+                            <li class="nav-item">
+                                 @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                {
+                                    <span>Welcome, @User.Identity.Name</span>
+                                    <a href="/Companies/Logout">Logout</a>
+                                    <p>Kullanıcı adı: @User.Identity.Name</p>
+                                }
+                                else
+                                {
+                                    <a href="/Companies/Login">Login</a>
+                                    <p>Kullanıcı girişi yapılmamış.</p>
+                                }
+                            </li>
+
                         
-                                <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index">Şirketler</a>
                             </li>
                             <li class="nav-item">
@@ -41,9 +56,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobPosting" asp-action="Index">İş İlanları</a>
-                            </li>
-                            <li class="nav-item">
-                            <a asp-controller="Candidates" asp-action="Logout" class="nav-link">Logout</a>
                             </li>
                         
                         </ul> 
