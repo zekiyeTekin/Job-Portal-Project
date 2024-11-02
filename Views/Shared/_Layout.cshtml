@@ -37,12 +37,12 @@
                                  @if (User.Identity != null && User.Identity.IsAuthenticated)
                                 {
                                     <span>Welcome, @User.Identity.Name</span>
-                                    <a href="/Companies/Logout">Logout</a>
+                                    <a href="/Candidates/Logout">Logout</a>
                                     <p>Kullanıcı adı: @User.Identity.Name</p>
                                 }
                                 else
                                 {
-                                    <a href="/Companies/Login">Login</a>
+                                    <a href="/Candidates/Login">Login</a>
                                     <p>Kullanıcı girişi yapılmamış.</p>
                                 }
                             </li>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace EFCoreFinalApp.Controllers{
@@ -142,7 +143,7 @@ namespace EFCoreFinalApp.Controllers{
 
 
 
-        [HttpGet("Candidates/Login")]
+        [HttpGet("/Candidates/Login")]
         public IActionResult Login(){
             if(User.Identity!.IsAuthenticated){
                 return RedirectToAction("Index","Home");
@@ -154,7 +155,7 @@ namespace EFCoreFinalApp.Controllers{
             return View();
         }
 
-        [HttpPost("Candidates/Register")]
+        [HttpPost("/Candidates/Register")]
         public async Task<IActionResult> Register(Candidates model,Role role){
 
             if(ModelState.IsValid){
@@ -175,55 +176,11 @@ namespace EFCoreFinalApp.Controllers{
 
             public async Task<IActionResult> Logout(){
 
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return RedirectToAction("Login");
         }
 
-        // [HttpPost]
-        // public async Task<IActionResult>Login(LoginViewModel model){
-
-        //     if(ModelState.IsValid){
-        //         var isUser =await _context.Candidates.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
-
-        //         if(isUser != null){
-        //             var userClaims = new List<Claim>();
-
-        //             userClaims.Add(new Claim(ClaimTypes.Role, isUser.Role.ToString()));
-
-
-        //             userClaims.Add(new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()));
-        //             userClaims.Add(new Claim(ClaimTypes.Name, isUser.Username ?? ""));
-                  
-        //             // if(isUser.Email == "zt@gmail.com"){
-        //             //     userClaims.Add(new Claim(ClaimTypes.Role, "candidate"));
-        //             // }
-
-        //             var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-
-        //             var authProporties = new AuthenticationProperties{IsPersistent =true};
-
-        //             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-        //             await HttpContext.SignInAsync(
-        //                 CookieAuthenticationDefaults.AuthenticationScheme,
-        //                 new ClaimsPrincipal(claimsIdentity),authProporties);
-
-        //              var claims = User.Claims.ToList();
-        //     foreach (var claim in claims)
-        //     {
-        //         Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
-        //     }
-
-        //             return RedirectToAction("Index","Home");
-        //         }else{
-        //         ModelState.AddModelError("","Kullanıcı adı veya parola hatalıdır.");
-        //      }
-
-        //     }
-        //     return View(model);
-        // }
-
+ 
 
 [HttpPost]
 public async Task<IActionResult> Login(LoginViewModel model)
@@ -253,8 +210,8 @@ public async Task<IActionResult> Login(LoginViewModel model)
                 var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var authProperties = new AuthenticationProperties { IsPersistent = true };
 
-                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+                    await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
                
                         return RedirectToAction("Index", "Home"); 

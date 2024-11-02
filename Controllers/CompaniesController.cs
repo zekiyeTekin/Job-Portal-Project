@@ -17,7 +17,7 @@ namespace EFCoreFinalApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Company")]
+        //[Authorize(Roles = "Company")]
         public async Task<IActionResult> Index(String industryFilter){
         var companies = from c in _context.Companies
                         select c;
@@ -61,7 +61,7 @@ namespace EFCoreFinalApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Company")]
+        //[Authorize(Roles = "Company")]
         public async Task<IActionResult> Create(Companies model, IFormFile logo)
         {
             if (ModelState.IsValid)
@@ -88,7 +88,7 @@ namespace EFCoreFinalApp.Controllers
 
 
         [HttpGet]
-        [Authorize(Roles = "Company")]
+        //[Authorize(Roles = "Company")]
         public async Task<IActionResult> listPostCompany(int companyId)
         {
            var company = _context.Companies.Find(companyId);
@@ -104,109 +104,6 @@ namespace EFCoreFinalApp.Controllers
 
             return View(jobPostings); 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        [HttpGet("Companies/Login")]
-        public IActionResult Login(){
-           
-            if(User.Identity!.IsAuthenticated){
-                return RedirectToAction("JobApply","Index");
-            }
-            return View();
-        }
-
-        [HttpGet("Companies/Register")]
-        public IActionResult Register(){
-            return View();
-        }
-
-        [HttpPost("Companies/Register")]
-        public async Task<IActionResult> Register(Companies model, Role role){
-
-            if(ModelState.IsValid){
-                var user = await _context.Companies.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
-                if(user == null){
-
-                     model.Role = Role.Company;
-                    _context.Companies.Add(model);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Login");
-                }else{
-                    ModelState.AddModelError("", "UserName ya da Email adresi kullanımda");
-                }
-            }
-            return View(model);
-        }
-
-
-            public async Task<IActionResult> Logout(){
-
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
-        }
-
-        [HttpPost("Companies/Login")]
-        public async Task<IActionResult>Login(LoginViewModel model){
-
-            if(ModelState.IsValid){
-
-                var isCompany = await _context.Companies.FirstOrDefaultAsync(x=>x.Email == model.Email && x.Password == model.Password);
-
-                if(isCompany != null){
-                    var companyClaims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, isCompany.Name ?? ""),  
-                new Claim(ClaimTypes.NameIdentifier, isCompany.Id.ToString()),
-                new Claim(ClaimTypes.Role, isCompany.Role.ToString())
-            };
-
-                    companyClaims.Add(new Claim(ClaimTypes.Role, isCompany.Role.ToString()));
-
-                    companyClaims.Add(new Claim(ClaimTypes.NameIdentifier, isCompany.Id.ToString()));
-                    companyClaims.Add(new Claim(ClaimTypes.Name, isCompany.Name ?? ""));
-
-                    var claimsIdentity = new ClaimsIdentity(companyClaims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-
-                    var authProporties = new AuthenticationProperties{IsPersistent =true};
-
-                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),authProporties);
-                    
-                   
-                        return RedirectToAction("Index", "JobApply"); 
-                    
-
-                    
-                }
-                else{
-                ModelState.AddModelError("","Kullanıcı adı veya parola hatalıdır.");
-             }
-
-            }
-            return View(model);
-        }
-
 
 
 
