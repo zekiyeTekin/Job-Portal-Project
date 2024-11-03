@@ -204,8 +204,8 @@ public async Task<IActionResult> Login(LoginViewModel model)
                 {
                     new Claim(ClaimTypes.Role, isUser.Role.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
-                    new Claim(ClaimTypes.Name, isUser.Username ?? "")
-                    //new Claim("ProfileImg" , isUser.ProfileImg ??"")
+                    new Claim(ClaimTypes.Name, isUser.Username ?? ""),
+                    new Claim("ProfileImg", isUser.ProfileImg ?? "/uploads/images/profile_(7).jpg")
                 };
 
                 var claimsIdentity = new ClaimsIdentity(userClaims, IdentityConstants.ApplicationScheme);

@@ -44,25 +44,31 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobPosting" asp-action="Index">İş İlanları</a>
                             </li>
+                              </ul> 
 
+                        <ul class="navbar-nav"> 
                             <li class="nav-item">
                                  @if (User.Identity.IsAuthenticated)
                                     {
-                                        @* var profileImgPath = User.Claims.FirstOrDefault(c => c.Type == "ProfileImg")?.Value; *@
+                                        var profileImgPath = User.Claims.FirstOrDefault(c => c.Type == "ProfileImg")?.Value; 
 
-                                        <span>@User.Identity.Name</span>
-
-                                        <a href="/Candidates/Logout">Logout</a>
+                                        //<span class="navbar-text">@User.Identity.Name</span>
+                                       
+                                        @if (!string.IsNullOrEmpty(profileImgPath))
+                                            {
+                                                <img src="@profileImgPath" width="40" height="40" class="rounded-circle " alt="Profile Image">
+                                            }
+                                        <a href="/Candidates/Logout" class="ml-4" >Logout</a>
                                     }
                                 else
                                 {
-                                    <a href="/Candidates/Login">Login</a>
+                                    <a href="/Candidates/Login" class="nav-link">Login</a>
                                     <p>Kullanıcı girişi yapılmamış.</p>
                                 }
                             </li>
-
+                        </ul>
                         
-                        </ul> 
+                      
                     </div>
 
                 </div>
