@@ -33,20 +33,7 @@
                     </div> *@
                         <ul class="navbar-nav flex-grow-1">
 
-                            <li class="nav-item">
-                                 @if (User.Identity != null && User.Identity.IsAuthenticated)
-                                {
-                                    <span>Welcome, @User.Identity.Name</span>
-                                    <a href="/Candidates/Logout">Logout</a>
-                                    <p>Kullanıcı adı: @User.Identity.Name</p>
-                                }
-                                else
-                                {
-                                    <a href="/Candidates/Login">Login</a>
-                                    <p>Kullanıcı girişi yapılmamış.</p>
-                                }
-                            </li>
-
+                            
                         
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index">Şirketler</a>
@@ -57,6 +44,23 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobPosting" asp-action="Index">İş İlanları</a>
                             </li>
+
+                            <li class="nav-item">
+                                 @if (User.Identity.IsAuthenticated)
+                                    {
+                                        @* var profileImgPath = User.Claims.FirstOrDefault(c => c.Type == "ProfileImg")?.Value; *@
+
+                                        <span>@User.Identity.Name</span>
+
+                                        <a href="/Candidates/Logout">Logout</a>
+                                    }
+                                else
+                                {
+                                    <a href="/Candidates/Login">Login</a>
+                                    <p>Kullanıcı girişi yapılmamış.</p>
+                                }
+                            </li>
+
                         
                         </ul> 
                     </div>

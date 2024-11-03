@@ -26,7 +26,7 @@ namespace EFCoreFinalApp.Controllers{
 
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id){
+        public async Task<IActionResult> Edit(string? id){
             if(id == null){
                 return NotFound();
             }
@@ -44,9 +44,9 @@ namespace EFCoreFinalApp.Controllers{
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Candidate")]
-        public async Task<IActionResult> Edit(int id, Candidates model, IFormFile? ProfileImg)
+        public async Task<IActionResult> Edit(string id, Candidates model, IFormFile? ProfileImg)
         {
-            if (id != model.Id)
+           if (id != model.Id)
             {
                 return NotFound();
             }
@@ -194,7 +194,7 @@ public async Task<IActionResult> Login(LoginViewModel model)
         if (isUser != null)
         {
             
-            if (isUser.Password == model.Password) 
+            if (isUser != null && isUser.Password == model.Password) 
             {
 
                 Console.WriteLine($"E-posta: {model.Email}, Parola: {model.Password}");
@@ -205,16 +205,19 @@ public async Task<IActionResult> Login(LoginViewModel model)
                     new Claim(ClaimTypes.Role, isUser.Role.ToString()),
                     new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
                     new Claim(ClaimTypes.Name, isUser.Username ?? "")
+                    //new Claim("ProfileImg" , isUser.ProfileImg ??"")
                 };
 
-                var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(userClaims, IdentityConstants.ApplicationScheme);
+                
                 var authProperties = new AuthenticationProperties { IsPersistent = true };
 
                 await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-                    await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                
+                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
                
-                        return RedirectToAction("Index", "Home"); 
+                return RedirectToAction("Index", "Home"); 
                 
             }
             else

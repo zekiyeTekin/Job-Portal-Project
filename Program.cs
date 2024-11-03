@@ -15,35 +15,17 @@ builder.Services.AddDbContext<DataContext>(options =>{
     options.UseSqlite(connectionString);
 });
  
-builder.Services.AddIdentity<Candidates, IdentityRole>().AddEntityFrameworkStores<DataContext>()
-        .AddDefaultTokenProviders();
+     
+builder.Services.AddIdentity<Candidates, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 
 
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
-})
- .AddCookie(IdentityConstants.ApplicationScheme, options =>
- {
-     options.LoginPath = "/Candidates/Login";
-     options.LogoutPath = "/Candidates/Logout";
-     options.AccessDeniedPath = "/Account/AccessDenied";
-     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
- });
-//  .AddCookie("CompanyScheme", options =>
-// {
-//         options.LoginPath = "/Companies/Login";
-//         options.LogoutPath = "/Companies/Logout";
-//         options.AccessDeniedPath = "/Account/AccessDenied";
-//         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-// });
 
 builder.Services.AddAuthorization(options =>
     {
-        //options.AddPolicy("CompanyPolicy", policy => policy.RequireRole(Role.Company.ToString()));
+        
         options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(Role.Candidate.ToString()));
     });
 

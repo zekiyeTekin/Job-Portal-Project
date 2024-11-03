@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EFCoreFinalApp.Data{
 
-    public class Candidates : IdentityUser { 
+    public class Candidates : IdentityUser<string> { 
 
         [Key]
-        public int Id { get; set;}
+        public override string Id { get; set;} = string.Empty;
         public string? Name { get; set;}
         public string? Surname { get; set;}
-        public string? Email { get; set;}
+        public new string Email { get; set;} = string.Empty;
         public string? Password {get;set;}
         public string? Phone { get; set;}
         public string? ProfileImg { get; set; } = string.Empty;
