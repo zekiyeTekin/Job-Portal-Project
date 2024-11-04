@@ -48,7 +48,8 @@
                             <li class="nav-item">
                                  @if (User.Identity.IsAuthenticated)
                                     {
-                                        var profileImgPath = User.Claims.FirstOrDefault(c => c.Type == "ProfileImg")?.Value; 
+                                        var profileImgPath = User.Claims.FirstOrDefault(c => c.Type == "ProfileImg")?.Value;
+
 
                                         <span class="navbar-text">@User.Identity.Name</span>
                                        

@@ -207,7 +207,7 @@ namespace EFCoreFinalApp.Controllers{
                             new Claim(ClaimTypes.Role, isUser.Role.ToString()),
                             new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
                             new Claim(ClaimTypes.Name, isUser.Username ?? ""),
-                            new Claim(ClaimTypes.UserData, isUser.ProfileImg ?? "/uploads/images/profile_(7).jpg")
+                            new Claim("ProfileImg", isUser.ProfileImg ?? "/uploads/images/profile_(7).jpg")
                         };
 
                         var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);

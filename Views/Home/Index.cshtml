@@ -17,6 +17,8 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         
+    @if(!User.Identity.IsAuthenticated)
+    {
         <!-- Aday -->
         <div class="col-md-5 d-flex flex-column align-items-center p-4 shadow-sm mx-2 content-box " style="background-color: #849f534b; border-radius: 8px;">
             <h3>Sevgili Adaylar</h3>
@@ -39,6 +41,9 @@
                 <a href="@Url.Action("Register", "Companies")" class="btn" style="background-color: #c20e0baa; color: white;" ><strong>Hesap Aç</strong></a>
             </div>
         </div>
+
+    }
+        
 
     </div>
 </div>
