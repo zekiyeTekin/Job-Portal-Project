@@ -6,10 +6,66 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EFCoreFinalApp.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateIdentitySchema : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "AccessFailedCount",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "ConcurrencyStamp",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "EmailConfirmed",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "LockoutEnabled",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "LockoutEnd",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "NormalizedEmail",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "NormalizedUserName",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "PasswordHash",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "PhoneNumber",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "PhoneNumberConfirmed",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "SecurityStamp",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "TwoFactorEnabled",
+                table: "Candidates");
+
+            migrationBuilder.DropColumn(
+                name: "UserName",
+                table: "Candidates");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
                 name: "AccessFailedCount",
@@ -93,62 +149,6 @@ namespace EFCoreFinalApp.Migrations
                 table: "Candidates",
                 type: "TEXT",
                 nullable: true);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "AccessFailedCount",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "ConcurrencyStamp",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "EmailConfirmed",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "LockoutEnabled",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "LockoutEnd",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "NormalizedEmail",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "NormalizedUserName",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "PasswordHash",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "PhoneNumber",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "PhoneNumberConfirmed",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "SecurityStamp",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "TwoFactorEnabled",
-                table: "Candidates");
-
-            migrationBuilder.DropColumn(
-                name: "UserName",
-                table: "Candidates");
         }
     }
 }

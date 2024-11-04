@@ -16,18 +16,23 @@ builder.Services.AddDbContext<DataContext>(options =>{
 });
  
      
-builder.Services.AddIdentity<Candidates, IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
+// builder.Services.AddIdentity<Candidates, IdentityRole>()
+//     .AddEntityFrameworkStores<DataContext>()
+//     .AddDefaultTokenProviders();
 
 
-
-
-builder.Services.AddAuthorization(options =>
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        
-        options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(Role.Candidate.ToString()));
+        options.LoginPath = "/Candidates/Login";
+        options.LogoutPath = "/Candidates/Logout";
     });
+
+
+// builder.Services.AddAuthorization(options =>
+//     {
+//         options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(Role.Candidate.ToString()));
+//     });
 
 var app = builder.Build();
 
@@ -38,16 +43,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-SeedData.TestVerileriniDoldur(app);
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
+SeedData.TestVerileriniDoldur(app);
 
 app.MapControllerRoute(
     name: "default",

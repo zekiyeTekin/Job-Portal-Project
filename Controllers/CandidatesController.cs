@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using EFCoreFinalApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 namespace EFCoreFinalApp.Controllers{
@@ -26,14 +26,18 @@ namespace EFCoreFinalApp.Controllers{
 
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string? id){
+        public async Task<IActionResult> Edit(int? id){
             if(id == null){
                 return NotFound();
             }
             var candidate = await _context.Candidates
-            .Include(o=>o.JobApply).ThenInclude(j=>j.JobPosting).FirstOrDefaultAsync(c=>c.Id == id);
+            .Include(o => o.JobApply)
+            .ThenInclude(j => j.JobPosting)
+            .FirstOrDefaultAsync(c => c.Id == id);
 
-            //var candidate = await _context.Candidates.FirstOrDefaultAsync(c=>c.Id == id);
+            Console.WriteLine(candidate);
+
+            
             if(candidate == null){
                 return NotFound();
 
@@ -44,12 +48,13 @@ namespace EFCoreFinalApp.Controllers{
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Candidate")]
-        public async Task<IActionResult> Edit(string id, Candidates model, IFormFile? ProfileImg)
+        public async Task<IActionResult> Edit(int id, Candidates model, IFormFile? ProfileImg)
         {
            if (id != model.Id)
             {
                 return NotFound();
             }
+            Console.WriteLine(id);
             if (ModelState.IsValid)
             {
                 try
@@ -160,9 +165,9 @@ namespace EFCoreFinalApp.Controllers{
 
             if(ModelState.IsValid){
                 var user = await _context.Candidates.FirstOrDefaultAsync(x=>x.Name == model.Name || x.Email == model.Email);
-                if(user == null){
+                if(user == null)
+                {
                     model.Role = Role.Candidate;
-
                     _context.Candidates.Add(model);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Login");
@@ -176,71 +181,64 @@ namespace EFCoreFinalApp.Controllers{
 
             public async Task<IActionResult> Logout(){
 
-            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            await HttpContext.SignOutAsync((CookieAuthenticationDefaults.AuthenticationScheme));
             return RedirectToAction("Login");
         }
 
  
 
-[HttpPost]
-public async Task<IActionResult> Login(LoginViewModel model)
-{
-    if (ModelState.IsValid)
-    {
-        var isUser = await _context.Candidates
-    .FirstOrDefaultAsync(x => x.Email == model.Email && x.Password == model.Password);
-
-
-        if (isUser != null)
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            
-            if (isUser != null && isUser.Password == model.Password) 
+            if (ModelState.IsValid)
             {
+                var isUser = await _context.Candidates
+            .FirstOrDefaultAsync(x => x.Email == model.Email && x.Password == model.Password);
 
-                Console.WriteLine($"E-posta: {model.Email}, Parola: {model.Password}");
 
-                
-                var userClaims = new List<Claim>
+                if (isUser != null)
                 {
-                    new Claim(ClaimTypes.Role, isUser.Role.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
-                    new Claim(ClaimTypes.Name, isUser.Username ?? ""),
-                    new Claim("ProfileImg", isUser.ProfileImg ?? "/uploads/images/profile_(7).jpg")
-                };
+                    
+                        Console.WriteLine($"E-posta: {model.Email}, Parola: {model.Password}");
 
-                var claimsIdentity = new ClaimsIdentity(userClaims, IdentityConstants.ApplicationScheme);
-                
-                var authProperties = new AuthenticationProperties { IsPersistent = true };
+                        
+                        var userClaims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Role, isUser.Role.ToString()),
+                            new Claim(ClaimTypes.NameIdentifier, isUser.Id.ToString()),
+                            new Claim(ClaimTypes.Name, isUser.Username ?? ""),
+                            new Claim(ClaimTypes.UserData, isUser.ProfileImg ?? "/uploads/images/profile_(7).jpg")
+                        };
 
-                await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-                
-                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                        var claimsIdentity = new ClaimsIdentity(userClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        
+                        var authProperties = new AuthenticationProperties { IsPersistent = true };
+                        
+                        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                        
+                    
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-               
-                return RedirectToAction("Index", "Home"); 
-                
+                        var userRole = isUser.Role;
+                        Console.WriteLine(userRole);
+
+                       
+
+                        if(userRole == Role.Candidate){
+                            return RedirectToAction("Index", "Home"); 
+                        }
+                        //TODO: return değeri accesdenied olarak güncellenecek
+                        else{
+                            return RedirectToAction("Index", "Home"); 
+                        }
+                    }
+                else
+                {
+                    ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır."); 
+                }
             }
-            else
-            {
-                ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır.");
-                Console.WriteLine("Giriş başarısız: Hatalı parola."); 
-            }
+            return View(model);
         }
-        else
-        {
-            ModelState.AddModelError("", "Kullanıcı adı veya parola hatalıdır.");
-            Console.WriteLine("Giriş başarısız: Kullanıcı bulunamadı."); 
+
+            } 
         }
-    }
-    else
-    {
-        Console.WriteLine("Model geçerli değil: " + string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))); 
-    }
-
-    return View(model);
-}
-
-
-
-    } 
-}
