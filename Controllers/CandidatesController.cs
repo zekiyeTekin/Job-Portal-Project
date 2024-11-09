@@ -86,7 +86,7 @@ namespace EFCoreFinalApp.Controllers{
         }
 
         [HttpPost]
-       
+        [Authorize(Roles = "Candidates")]       
         public async Task<IActionResult> Create(Candidates model, IFormFile ProfileImg, IFormFile ResumePath)
         {
             if (ModelState.IsValid)

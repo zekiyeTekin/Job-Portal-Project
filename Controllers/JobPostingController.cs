@@ -3,6 +3,7 @@ using EFCoreFinalApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EFCoreFinalApp.Controllers
 {
@@ -72,6 +73,7 @@ namespace EFCoreFinalApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Company")]
         public async Task<IActionResult> Create(JobPosting jobPosting)
         {
             jobPosting.PostedDate = DateTime.Now;
@@ -96,6 +98,7 @@ namespace EFCoreFinalApp.Controllers
         }
 
 
+        [Authorize(Roles = "Company")]
           public IActionResult JobApplications(int jobPostingId)
         {
             var jobPosting = _context.JobPosting

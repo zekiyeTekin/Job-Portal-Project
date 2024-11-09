@@ -1,4 +1,5 @@
 using EFCoreFinalApp.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace EFCoreFinalApp.Controllers{
             _context = context;
         }
 
+        
         public async Task<IActionResult> Index()
             {
                 var jobApplies = await _context.JobApply
@@ -22,6 +24,7 @@ namespace EFCoreFinalApp.Controllers{
             }
 
         [HttpGet]
+        [Authorize(Roles = "Candidates")]
         public async Task<IActionResult> Create(int jobPostingId)
         {
             var jobPosting = await _context.JobPosting.FindAsync(jobPostingId);
