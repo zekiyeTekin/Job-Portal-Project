@@ -19,6 +19,12 @@
 - code .
 ### Projenin incelemeye başlayabilirsiniz:
 - http://localhost:{yourListenPort}/
+### Projede aday girişi için :
+- kullanıcı adı: candidate@gmail.com
+- kullanıcı şifresi: candidate
+### Projede şirket girişi için :
+- kullanıcı adı: company@gmail.com
+- kullanıcı şifresi: company
 
 ## Özellikler
 
@@ -57,7 +63,7 @@
 
 | Description    | Screenshot                    |
 |----------------|-------------------------------|
-| **Giriş ve Kayıt Sayfası**  | ![Login and Register Page](/wwwroot/img/readme_login.jpg)  |
+| **Giriş ve Kayıt Sayfası**  | ![Login and Register Page](/wwwroot/img/readme_login.png)  |
 | **Yetkisiz Erişmeye Çalışmak**  | ![Login and Register Page](/wwwroot/img/readme_accessDenied.png)  |
 | **Giriş Sonrası Yönlendirilen Ekran**  | ![Login and Register Page](/wwwroot/img/readme_successLogin.png)  |
 | **Tüm Şirketleri Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyList.png)  |

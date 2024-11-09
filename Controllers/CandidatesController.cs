@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 
@@ -86,7 +85,7 @@ namespace EFCoreFinalApp.Controllers{
         }
 
         [HttpPost]
-        [Authorize(Roles = "Candidates")]       
+        [Authorize(Roles = "Candidate")]       
         public async Task<IActionResult> Create(Candidates model, IFormFile ProfileImg, IFormFile ResumePath)
         {
             if (ModelState.IsValid)

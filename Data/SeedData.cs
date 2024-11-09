@@ -19,7 +19,8 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                     Role=Role.Candidate},
                     new Candidates {Name = "Münevver", Surname = "Tekin", Email="mt@gmail.com", Phone="02222222222", ProfileImg="uploads/images/profil_1.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11",
                     Role=Role.Candidate},
-                    new Candidates {Name = "Hasan", Surname = "Karademir", Email="hk@gmail.com", Phone="03333333333", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11",Role=Role.Candidate}
+                    new Candidates {Name = "Hasan", Surname = "Karademir", Email="hk@gmail.com", Phone="03333333333", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="zekiye11",Role=Role.Candidate},
+                    new Candidates {Name = "Candidate", Surname = "Candidates", Email="candidate@gmail.com", Phone="04444444444", ProfileImg="uploads/images/profil_3.jpg", ResumePath="uploads/resumes/ZekiyeTekin_Ozgecmis.pdf", IsOpenToWork=true, Password="candidate",Role=Role.Candidate}
                 );
                 context.SaveChanges();
             }
@@ -32,6 +33,9 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                     Role=Role.Company
                     },
                     new Companies{Name = "HK Yapay Zeka", Description="Ülkemize ve tüm insanlığa fayda sağlayacak yapay zekâ sistemleri üretebilecek çalışanları bir araya toplayarak hem  bilimsel çalışmaları arttırmak hem de sanayinin ihtiyaç duyduğu sistemleri yapay zekâ çözümleri ile geliştirebilen ve bu alanda öncü bilimsel çalışmalar üreten bir merkez olmak amaçlıyoruz", Email="hk.ai@gmail.com", Phone="01111114444", Industry="Yapay Zeka", Logo="uploads/images/logo_hk.jpg", Password="zekiye11",
+                    Role=Role.Company
+                    },
+                    new Companies{Name = "Company Proje A.Ş", Description="Ülkemize ve tüm insanlığa fayda sağlayacak yapay zekâ sistemleri üretebilecek çalışanları bir araya toplayarak hem  bilimsel çalışmaları arttırmak hem de sanayinin ihtiyaç duyduğu sistemleri yapay zekâ çözümleri ile geliştirebilen ve bu alanda öncü bilimsel çalışmalar üreten bir merkez olmak amaçlıyoruz", Email="company@gmail.com", Phone="01111115555", Industry="Teknoloji", Logo="uploads/images/logo_hk.jpg", Password="company",
                     Role=Role.Company
                     }
                 );
@@ -74,7 +78,7 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                         Salary = 55000 ,
                         PostedDate = DateTime.Now,
                         ClosingDate = DateTime.Now.AddDays(1),
-                        CompaniesId = 3
+                        CompaniesId = 4
                     }
                 );
                 context.SaveChanges();
@@ -87,6 +91,12 @@ namespace EFCoreFinalApp.Data.EFCoreFinalApp{
                         ApplyDate = DateTime.Now.AddDays(-5),
                         JobPostingId = 3,
                         CandidatesId = 2
+                    },
+                    new JobApply{
+                        Status = "Başvurunuz alındı",
+                        ApplyDate = DateTime.Now.AddDays(-3),
+                        JobPostingId = 4,
+                        CandidatesId = 4
                     }
                 );
                 context.SaveChanges();

@@ -27,12 +27,15 @@
                     </button>
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 
-                    @* <div class="container-fluid" style="display: flex;
+                     @if (!User.Identity.IsAuthenticated)
+                                    { <div class="container-fluid" style="display: flex;
                     justify-content: center; align-items: center; height:40px; color: #a00e0ee4;font-weight: bold;">
                         <p class="text-center"><strong>✨✨İş Arama Platformuna Hoş Geldiniz ✨✨</strong></p>
-                    </div> *@
-                        <ul class="navbar-nav flex-grow-1">
+                    </div> }
 
+                        <ul class="navbar-nav flex-grow-1">
+                        @if(User.Identity.IsAuthenticated)
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Companies" asp-action="Index">Şirketler</a>
                             </li>
@@ -42,6 +45,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="JobPosting" asp-action="Index">İş İlanları</a>
                             </li>
+
+                        }
+                            
                         </ul> 
 
                         <ul class="navbar-nav"> 
@@ -59,11 +65,11 @@
                                             }
                                         <a href="/Candidates/Logout" class="ml-4" >Logout</a>
                                     }
-                                else
+                                @* else
                                 {
-                                    <a href="/Candidates/Login" class="nav-link">Login</a>
+                                  <a href="/Candidates/Login" class="nav-link">Login</a> 
                                     <p>Kullanıcı girişi yapılmamış.</p>
-                                }
+                                } *@
                             </li>
                         </ul>
                         

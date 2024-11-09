@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using EFCoreFinalApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Authorization;
 
 namespace EFCoreFinalApp.Controllers
