@@ -6,7 +6,6 @@
 - [Özellikler](#özellikler)
 - [Teknik Detaylar](#teknik-detaylar)
 - [Proje Görünümü](#proje-görünümü)
-- [Kullanım](#kullanım)
 
 ## Proje Amacı
 **Job Portal Application**, iş bulma sürecini kolaylaştırarak, iş arayanlar ile işverenler arasında etkili bir iletişim platformu oluşturmayı hedefler. Bu sayede her iki tarafın ihtiyaçlarını karşılayarak, kariyer gelişimine katkı sağlar.
@@ -59,6 +58,8 @@
 | Description    | Screenshot                    |
 |----------------|-------------------------------|
 | **Giriş ve Kayıt Sayfası**  | ![Login and Register Page](/wwwroot/img/readme_login.jpg)  |
+| **Yetkisiz Erişmeye Çalışmak**  | ![Login and Register Page](/wwwroot/img/readme_accessDenied.png)  |
+| **Giriş Sonrası Yönlendirilen Ekran**  | ![Login and Register Page](/wwwroot/img/readme_successLogin.png)  |
 | **Tüm Şirketleri Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyList.png)  |
 | **Şirketleri Detaylarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyDetail.png)  |
 | **Şirketleri Alanına Göre Filtreleme**  | ![CreatePost](/wwwroot/img/readme_companiesFilter.png)  |
@@ -69,6 +70,7 @@
 | **Aday Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createCandidate.png)  |
 | **Şirketlerin İş Postlarını Oluşturması**  | ![CreatePost](/wwwroot/img/readme_createdJobPosting.png)  |
 | **Şirketleri İş Postlarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyViewPost.png)  |
+| **İş Postlarına Sahip Olmayan Şirketlerin Görünümü**  | ![CreatePost](/wwwroot/img/readme_nullJobPost.png)  |
 | **Şirketleri İş Postlarını Başlığa göre Arama**  | ![CreatePost](/wwwroot/img/readme_companySearchByTitle.png)  |
 | **Şirketleri İş Postlarının Detaylarını Görüntüleme**  | ![CreatePost](/wwwroot/img/readme_companyPostDetail.png)  |
 | **İş Postuna Başvuru yapmak**  | ![CreatePost](/wwwroot/img/readme_applyPage.png)  |
@@ -82,5 +84,4 @@
 
 
 
-## Kullanım 
--Video hazırlanıp konulacak(TODO)
+
