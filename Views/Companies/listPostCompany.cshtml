@@ -7,7 +7,8 @@
 <h2>@ViewBag.CompanyName Şirketinin Paylaştığı İş İlanları</h2>
 
 <div class="table-container">
-<table class="table  table-hover">
+
+    <table class="table  table-hover">
     <thead class="table-header">
         <tr>
             <th>İlan Adı</th>
@@ -27,15 +28,17 @@
                 <td>
                     <a>
                         <a asp-controller="JobPosting" asp-action="JobApplications" asp-route-jobPostingId="@job.Id" class="btn btn-warning">Başvuranları Görüntüle</a>
-
+ 
                     </a>
                 </td>
               
                 
             </tr>
+           
         }
     </tbody>
 </table>
+
 </div>
 
 <a asp-controller="Companies" asp-action="Index" class="btn btn-success" >Şirket Sayfasına Geri Dön</a>
